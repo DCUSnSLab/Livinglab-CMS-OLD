@@ -1,0 +1,19 @@
+
+{% block content %}
+
+<h1>contents</h1>
+<hr>
+<div class="container">
+
+    {% for content in contents_list %}
+
+        <img width="300px" height="500px" src = "/media/{{content.upload_file}}" alt="NO Content">
+    <p>콘텐츠 번호 : {{content.id}}</p>
+    <p>콘텐츠 제목 : {{content.title}}</p>
+    <button><a href = "{% url 'contents:update' content.id %}">콘텐츠 수정</a></button>
+    <button><a href = "{% url 'contents:delete' content.id %}">콘텐츠 삭제</a></button>
+        <hr>
+    {%endfor%}
+</div>
+
+{% endblock %}

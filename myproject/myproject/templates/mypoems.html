@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<section id="about" class="about section-bg">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title">
+            <h2>{{instance.title}}</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up">
+                <p>
+                    {% autoescape off %}
+                  {{instance.body}}
+                    {% endautoescape %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+</html>

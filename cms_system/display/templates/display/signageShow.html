@@ -1,0 +1,255 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            a {
+                color: #42b983;
+            }
+            ul {
+                text-align: center;
+            }
+            .w3-center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .container div {
+              width: 250px;
+              background-color: antiquewhite;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 1rem;
+            }
+
+              .container img {
+              width: 100%;
+              }
+
+            /* The Modal (background) */
+            .modal {
+              display: none; /* Hidden by default */
+              position: fixed; /* Stay in place */
+              z-index: 1; /* Sit on top */
+
+              left: 0;
+              top: 0;
+              width: 100%; /* Full width */
+              height: 100%; /* Full height */
+              overflow: auto; /* Enable scroll if needed */
+              background-color: rgb(0,0,0); /* Fallback color */
+              background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+
+            /* Modal Content */
+            .modal-content {
+              background-color: #fefefe;
+              margin: auto;
+              padding: 20px;
+              border: 1px solid #888;
+              width: 90%;
+                height: 100%;
+            }
+
+            /* The Close Button */
+            .close {
+              color: #aaaaaa;
+              float: right;
+              font-size: 28px;
+              font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+              color: #000;
+              text-decoration: none;
+              cursor: pointer;
+            }
+
+        </style>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/easings.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/easings.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.min.js.map"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.css" />
+        <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+
+    </head>
+
+    <body>
+
+        <div id="fullpage">
+            <div class="section">Gallery
+                <div class="slide">
+                    <div class="container">
+                     {% for content in contents_list %}
+                                <div class="w3-quarter">
+
+                                <img src= "/media/{{content.upload_file}}" alt="No Content" \
+                                     style="width:100%; height:100%; cursor:pointer" \
+                                     onclick="onClick(this)" class="w3-hover-opacity">
+                                </div>
+                     {%endfor%}
+                    </div>
+                </div>
+
+                <div class="slide"> Video </div>
+            </div><!-- section -->
+
+            <div class="section">
+                <div class="container">
+                {% for content in contents_list %}
+                    <div class="w3-quarter">
+                        <img class="myBtn" src= "/media/{{content.upload_file}}" alt="No Content" width="100%" height="100%">
+                    </div>
+                {%endfor%}
+                </div>
+            </div>
+
+            <div class="section">test
+
+                {% for content in contents_list %}
+                    <div class="w3-quarter">
+                        <img class="myBtn" src= "/media/{{content.upload_file}}" alt="No Content" width="100%" height="100%">
+                    </div>
+                        <p>{{content.id}}</p>
+                        <p>{{forloop.counter}}</p>
+                {%endfor%}
+
+            </div>
+
+        </div> <!-- fullpage -->
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+          </div>
+        </div>
+
+        <!-- The Modal2 -->
+        <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+          <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+          <div class="w3-modal-content w3-animate-zoom">
+            <img id="img01" style="width:50%">
+          </div>
+        </div>
+
+<script type="text/javascript">
+
+//vinilla javascript
+//옵션 지정
+    var myFullpage = new fullpage('#fullpage', {
+
+        anchors: ['Gallery', 'Spotlight', 'Description', 'Comments'],
+        sectionsColor: ['#000000', '#FFFFFF', '#000080'],
+        slidesNavigation: true,
+        slidesNavPosition: 'bottom',
+        controlArrows: false,
+        navigation: "true", // 네비게이션 사용 여부
+        navigationPosition:"right", //네비게이션 위치
+        showActiveTooptip: true,
+        navigationTooltips: ['콘텐츠', '스포트라이트', '소개글', '댓글'],
+
+        loopBottom: true,
+        fitToSection: true,
+        keyboardScrolling: true,
+        animateAnchor: true,
+    });
+
+    //마우스, 터치로 스크롤 방지
+//fullpage_api.setAllowScrolling(false);
+fullpage_api.setAllowScrolling(true);
+
+//jquery
+$(document).ready(function () {
+
+    //자바스크립트에서 템플릿 태그로 그대로 로드할 시 escape 문자와 함께 출력 됨
+    //이를 해결하기 위해 템플릿 태그 내 | safe 옵션을 붙이지만 json 형태로 변환할 수 없음
+    //대신 .replace(/&#x27;/g, "\""); 통해 escape 문자 삭제 가능
+
+    //현재 json으로 옮기는 도중 모든 객체를 가진 오브젝트는 json으로 변환이 되지 않는 것을 보았다
+    //이는 특정 필드가 재대로 변환되지 않는다는 뜻
+
+    //id, title, upload_file
+    // var contents_object_val_list_spec = "{{contents_object_val_list_spec}}".replace(/&#x27;/g, "\"");
+    //     console.log("contents_object_val_list_spec", contents_object_val_list_spec);
+    //
+    // const contents_object_val_list_spec_json = JSON.parse(contents_object_val_list_spec);
+    //  console.log("contents_object_val_list_spec_json", contents_object_val_list_spec_json);
+
+    //오브젝트 전체
+    var contents_list_dic = "{{contents_list_dic}}".replace(/&quot;/g, "\"");
+        console.log("contents_list_dic", contents_list_dic);
+
+    const contents_list_json = JSON.parse(contents_list_dic);
+        console.log("contents_list_json", contents_list_json);
+
+    for(var key in contents_list_json){
+        console.log("각 객체", contents_list_json[key]);
+        console.log("id", contents_list_json[key]["id"]);
+        console.log("title", contents_list_json[key]["title"]);
+        console.log("upload_file", contents_list_json[key]["upload_file"]);
+        console.log("contents_list_json 의 키값", Object.keys(contents_list_json));
+    }
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var cols = document.querySelectorAll('.myBtn');
+
+    [].forEach.call(cols,function(col){ col.addEventListener("click", click, false); });
+
+    // When the user clicks on <span> (x), close the modal
+    function click(e) {
+         modal.style.display = "block";
+
+        //   //6번 키가 있는지 검사
+        // const isExist1 = Object.keys(contents_list_json).includes('6');
+        //
+        // if(isExist1){
+        //     console.log("있는가?", isExist1);
+        // }
+        // else{
+        //     console.log("없다카이");
+        // }
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+});
+
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+}
+
+</script>
+        <script src="{% static 'magic_grid/js/magicgrid.js' %}"></script>
+    </body>
+</html>
