@@ -1,10 +1,24 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
+<img src = "/media/contents/UID-1/v1.jpg">
+
+{% for content in projector_content %}
+<p>test {{content}}</p>
+
+    <img src= "/media/{{content.upload_file}}" \
+         alt="No Content" \
+         style="width:10%; height:10%; cursor:pointer" \
+         class="w3-hover-opacity contents">
+{%endfor%}
+
+<script></script>
 </body>
 </html>

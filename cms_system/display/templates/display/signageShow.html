@@ -95,9 +95,10 @@
                      {% for content in contents_list %}
                                 <div class="w3-quarter">
 
-                                <img src= "/media/{{content.upload_file}}" alt="No Content" \
+                                <img src= "/media/{{content.upload_file}}" \
+                                     alt="No Content" \
                                      style="width:100%; height:100%; cursor:pointer" \
-                                     onclick="onClick(this)" class="w3-hover-opacity">
+                                     onclick="showContents(this)" class="w3-hover-opacity contents">
                                 </div>
                      {%endfor%}
                     </div>
@@ -105,45 +106,13 @@
 
                 <div class="slide"> Video </div>
             </div><!-- section -->
-
-            <div class="section">
-                <div class="container">
-                {% for content in contents_list %}
-                    <div class="w3-quarter">
-                        <img class="myBtn" src= "/media/{{content.upload_file}}" alt="No Content" width="100%" height="100%">
-                    </div>
-                {%endfor%}
-                </div>
-            </div>
-
-            <div class="section">test
-
-                {% for content in contents_list %}
-                    <div class="w3-quarter">
-                        <img class="myBtn" src= "/media/{{content.upload_file}}" alt="No Content" width="100%" height="100%">
-                    </div>
-                        <p>{{content.id}}</p>
-                        <p>{{forloop.counter}}</p>
-                {%endfor%}
-
-            </div>
-
         </div> <!-- fullpage -->
 
         <!-- The Modal -->
-        <div id="myModal" class="modal">
-          <!-- Modal content -->
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
-          </div>
-        </div>
-
-        <!-- The Modal2 -->
-        <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+        <div id="c_modal" class="w3-modal" onclick="this.style.display='none'">
           <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
           <div class="w3-modal-content w3-animate-zoom">
-            <img id="img01" style="width:50%">
+            <img id="cont" style="width:50%">
           </div>
         </div>
 
@@ -169,14 +138,12 @@
         animateAnchor: true,
     });
 
-    //마우스, 터치로 스크롤 방지
+//마우스, 터치로 스크롤 방지
 //fullpage_api.setAllowScrolling(false);
 fullpage_api.setAllowScrolling(true);
 
-//jquery
-$(document).ready(function () {
 
-    //자바스크립트에서 템플릿 태그로 그대로 로드할 시 escape 문자와 함께 출력 됨
+//자바스크립트에서 템플릿 태그로 그대로 로드할 시 escape 문자와 함께 출력 됨
     //이를 해결하기 위해 템플릿 태그 내 | safe 옵션을 붙이지만 json 형태로 변환할 수 없음
     //대신 .replace(/&#x27;/g, "\""); 통해 escape 문자 삭제 가능
 
@@ -199,55 +166,60 @@ $(document).ready(function () {
 
     for(var key in contents_list_json){
         console.log("각 객체", contents_list_json[key]);
-        console.log("id", contents_list_json[key]["id"]);
-        console.log("title", contents_list_json[key]["title"]);
-        console.log("upload_file", contents_list_json[key]["upload_file"]);
-        console.log("contents_list_json 의 키값", Object.keys(contents_list_json));
+        console.log("id : ", contents_list_json[key]["id"]);
+        console.log("title : ", contents_list_json[key]["title"]);
+        console.log("upload_file : ", contents_list_json[key]["upload_file"]);
+        console.log("contents_list_json 의 키값 : ", Object.keys(contents_list_json));
     }
 
-    // Get the modal
-    var modal = document.getElementById("myModal");
+    function showContents(element) {
+          document.getElementById("cont").src = element.src;
+          document.getElementById("c_modal").style.display = "block";
 
-    // Get the button that opens the modal
-    var cols = document.querySelectorAll('.myBtn');
-
-    [].forEach.call(cols,function(col){ col.addEventListener("click", click, false); });
-
-    // When the user clicks on <span> (x), close the modal
-    function click(e) {
-         modal.style.display = "block";
-
-        //   //6번 키가 있는지 검사
-        // const isExist1 = Object.keys(contents_list_json).includes('6');
-        //
-        // if(isExist1){
-        //     console.log("있는가?", isExist1);
-        // }
-        // else{
-        //     console.log("없다카이");
-        // }
     }
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    //선택 콘텐츠 정보를 비동기 방식으로 프로젝터 페이지로 전송
+    let $pushEvt = $('.contents').on('click', function() {
+        let idx = $pushEvt.index(this); // <- 변경된 코드
+        console.log(idx);
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
+        if(idx in Object.keys(contents_list_json)){
+            console.log("true");
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-});
+            console.log("각 객체", contents_list_json[idx]);
+            console.log("id : ", contents_list_json[idx]["id"]);
+            console.log("title : ", contents_list_json[idx]["title"]);
+            console.log("upload_file : ", contents_list_json[idx]["upload_file"]);
 
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-}
+            let contents_data = {
+            'id': contents_list_json[idx]["id"],
+            'title': contents_list_json[idx]["title"],
+            'upload_file': contents_list_json[idx]["upload_file"],
+            //다른 요소 추가 가능
+            };
+
+            console.log("contents_data", contents_data);
+
+            let a = 1;
+            //ajax 비동기 데이터 전송
+
+            $.ajaxSetup({
+                headers: { "X-CSRFToken": '{{csrf_token}}' },
+            });
+
+            $.ajax({
+                url: "{% url 'display:projector' %}",
+                dataType: 'json',
+                type: 'POST',
+                data : JSON.stringify(contents_data),
+            });
+        }
+    });
+
+//jquery
+// $(document).ready(function () {
+//
+// });
 
 </script>
         <script src="{% static 'magic_grid/js/magicgrid.js' %}"></script>

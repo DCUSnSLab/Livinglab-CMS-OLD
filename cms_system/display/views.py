@@ -84,13 +84,59 @@ def signageView(request):
 
     return render(request, 'display/signageShow.html', context)
 
+def projectorView(request):
+
+    data  = None
+    testVale  = Contents.objects.all()
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+        print("data : ", data['upload_file'])
+
+        context = {
+            "projector_content": data,
+        }
+        print("context : ", context)
+        return render(request, 'display/projectorShow.html', context)
+
+    else:
+        context = {
+            "projector_content": testVale,
+        }
+
+        print("context : ", context)
+        return render(request, 'display/projectorShow.html', context)
+
+
+
+
+
+
+
+
+
+
 def testView(request):
+    # For Gallery Show
+    contents_list = list(Contents.objects.all().values('id', 'title', 'upload_file'))
+    print("For Gallery Show")
+    print("contents_list : \n", contents_list)
+    print("type : ", type(contents_list))
+    print()
 
-    contents_list = Contents.objects.all()
+    # Django Json Encoder
+    contents_serach = Contents.objects.all().values()
+    contents_list_dic = json.dumps(list(contents_serach), cls=DjangoJSONEncoder)
+    print("Django Json Encoder")
+    print("contents_list_json : \n", contents_list_dic)
+    print("type : ", type(contents_list_dic))
+    print()
 
-    print("c : ", contents_list)
+    context = {
+        "contents_list": contents_list,
 
-    context = {"contents_list": contents_list}
+        "contents_list_dic": contents_list_dic,
+    }
 
     return render(request, 'display/test.html', context)
 
