@@ -82,16 +82,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.min.js.map"></script>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.css" />
         <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css" />
-
-
     </head>
 
     <body>
-
         <div id="fullpage">
             <div class="section">Gallery
                 <div class="slide">
                     <div class="container">
+                        <div id = "div_id">xx</div>
                      {% for content in contents_list %}
                                 <div class="w3-quarter">
 
@@ -158,6 +156,9 @@ fullpage_api.setAllowScrolling(true);
     //  console.log("contents_object_val_list_spec_json", contents_object_val_list_spec_json);
 
     //오브젝트 전체
+    let rawdata = "{{contents_list_dic}}";
+    console.log("rawdata", rawdata);
+
     var contents_list_dic = "{{contents_list_dic}}".replace(/&quot;/g, "\"");
         console.log("contents_list_dic", contents_list_dic);
 
@@ -198,6 +199,8 @@ fullpage_api.setAllowScrolling(true);
             //다른 요소 추가 가능
             };
 
+            let json_contents_data = JSON.stringify(contents_data)
+
             console.log("contents_data", contents_data);
 
             let a = 1;
@@ -211,7 +214,14 @@ fullpage_api.setAllowScrolling(true);
                 url: "{% url 'display:projector' %}",
                 dataType: 'json',
                 type: 'POST',
-                data : JSON.stringify(contents_data),
+                data : json_contents_data,
+                success : function (context) {
+                    console.log(context + "성공");
+
+                },
+                error : function (context) {
+                    console.log(context + "실패");
+                }
             });
         }
     });

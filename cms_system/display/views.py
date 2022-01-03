@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
 from contents.models import Contents
 import json
 from django.core.serializers.json import DjangoJSONEncoder
@@ -86,19 +87,36 @@ def signageView(request):
 
 def projectorView(request):
 
+    # 비동기 실시간으로 projectorShow 페이지에 데이터를 넘기고
+    # projectorShow 페이지에서는 페이지 refresh 없이 이미지를 변경해야한다다
+    print("request : ", request, "request user : ", request.user)
     data  = None
     testVale  = Contents.objects.all()
     if request.method == 'POST':
 
         data = json.loads(request.body)
-        print("data : ", data['upload_file'])
+        print("ID : ", data['id'])
+        print("Title : ", data['title'])
+        print("Upload_file : ", data['upload_file'])
+        print("data : ", data)
+        print("data type: ", type(data))
 
         context = {
             "projector_content": data,
         }
         print("context : ", context)
-        return render(request, 'display/projectorShow.html', context)
+        # render 가 아닌 그냥 데이터를 넘기는 걸로 해야할듯하다.
+        # 자동으로 변경되게하는 것은 해당 페이지에서 AJAX를 쓰던지.
+        # 여기선 데이터가 넘어가는지만 확인해야한다.
+        # projectorShow에서 로그를 찍어봐야할듯
 
+       # return render(request, 'display/projectorShow.html', context)
+       #  respone = HttpResponse()
+       #  return respone.write("<p>!!!!!!</p>")
+       # 이거 AJax 용으로 반환해야해서 렌더자체가 안되는거 아니야?
+        return HttpResponseRedirect("http://www.naver.com")
+
+    # 새로고침하면 이쪽으로 들어간다.
     else:
         context = {
             "projector_content": testVale,
@@ -107,12 +125,8 @@ def projectorView(request):
         print("context : ", context)
         return render(request, 'display/projectorShow.html', context)
 
-
-
-
-
-
-
+    # 값이 들어오자마자 자동으로 httpredirect 를 쓰면 특정 url로 바로 넘어가지않을까?
+    # html에서는 AJAX나 비동기방식을 이용하고
 
 
 

@@ -7,18 +7,30 @@
     <title>Title</title>
 </head>
 <body>
+    <div>
+        변경하지 않는 구역입니다.
+    </div>
 
-<img src = "/media/contents/UID-1/v1.jpg">
+    <div>변경해야하되는 구역<div>
+    <img src = "/media/contents/UID-1/v1.jpg">
+    <div>변경해야하되는 구역<div>
 
-{% for content in projector_content %}
-<p>test {{content}}</p>
+    {% for content in projector_content %}
+    <p>test {{content}}</p>
 
-    <img src= "/media/{{content.upload_file}}" \
-         alt="No Content" \
-         style="width:10%; height:10%; cursor:pointer" \
-         class="w3-hover-opacity contents">
-{%endfor%}
+        <img src= "/media/{{content.upload_file}}"
+             alt="No Content"
+             style="width:10%; height:10%; cursor:pointer"
+             class="w3-hover-opacity contents">
+    {%endfor%}
 
-<script></script>
+    <script type="text/javascript">
+
+        //오브젝트 전체
+        let contents_list_dic = "{{projector_content}}".replace(/&gt;/g, "\"");
+        let contents_list_dic2 = contents_list_dic.replace(/&lt;/g, "\"");
+        console.log("contents_list_dic2", contents_list_dic2);
+
+    </script>
 </body>
 </html>
