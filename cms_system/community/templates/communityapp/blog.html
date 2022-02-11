@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta content="description" name="description">
+    <meta name="google" content="notranslate" />
+    <meta content="Mashup templates have been developped by Orson.io team" name="author">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="{% static './assets/main.82cfd66e.css' %}" rel="stylesheet">
+    <link href="{% static './assets/mycss.css' %}" rel="stylesheet">
+    <title>community</title>
+</head>
+<body>
+    <div class="w3-top">
+      <div class="w3-bar w3-black w3-card">
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
+      </div>
+    </div>
+    <div class="my_center">
+        <button class="btn btn-primary btn-lg my_blue_btn"><a class="my_color_white" href="{% url 'new_post' community.id %}">게시글쓰기</a></button>
+        <button class="btn btn-primary btn-lg my_right my_blue_btn"><a class="my_color_white" href="{% url 'index' %}">메인으로</a></button>
+        <hr>
+        <table style="width:100%">
+            <tr class="nav">
+                <td style="width:60%">제목</td>
+                <td style="text-align: center">작성자</td>
+                <td style="text-align: center">작성일</td>
+            </tr>
+            {% if page_obj %}
+            {% for list in page_obj %}
+            <tr class="nav" style="height:50px">
+                <td style="width:60%"><a class="my_color_black" href="{% url 'posting' community.id list.id %}">{{list.title}}</a></td>
+                <td style="text-align: center">{{user.username}}</td>
+                <td style="text-align: center">{{list.lastEditDate}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr class="nav">
+                <td>게시글이 없습니다.</td>
+            </tr>
+            {% endif %}
+        </table>
+        <div class="pagination">
+            <ul class="justify-content-center nav" style="margin-top: 2rem;">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?&page={{ page_obj.previous_page_number }}">이전</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                </li>
+                {% endif %}
+                {% for page_number in page_obj.paginator.page_range %}
+                {% if page_number == page_obj.number %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?&page={{ page_obj.next_page_number }}">다음</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

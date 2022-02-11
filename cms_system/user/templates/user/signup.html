@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content = "ie=edge">
+    <title>SignUP2</title>
+</head>
+<body>
+
+    <form method="POST" enctype="multipart/form-data" action="{% url 'user:signup' %}">
+        {% csrf_token %}
+        {{form.as_p}}
+        <p>CMS 닉네임 : {{additional_form.nickname}}</p>
+        <p>내소개 : {{additional_form.user_description}}</p>
+        <!-- 관리자 권한으로 변경 예정 -->
+        <p>사용자 권한 : {{additional_form.user_auth}}</p>
+        <p>내 프로필 이미지 : {{additional_form.user_profile}}</p>
+
+        <input type="submit" value="회원가입">
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta content="description" name="description">
+    <meta name="google" content="notranslate" />
+    <meta content="Mashup templates have been developped by Orson.io team" name="author">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="{% static './assets/main.82cfd66e.css' %}" rel="stylesheet">
+    <link href="{% static './assets/mycss.css' %}" rel="stylesheet">
+    <title>post</title>
+</head>
+<body>
+    <div class="w3-top">
+      <div class="w3-bar w3-black w3-card">
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
+      </div>
+    </div>
+    <div class="my_center">
+        <a href="{% url 'community' community.id %}" class="my_right my_blue_txt">목록</a>
+        <p>제목 : {{post.title}}</p>
+        <p>작성자 : {{user.username}}</p>
+        <p>작성시간 : {{post.createDate}} &nbsp;&nbsp;&nbsp;&nbsp; 수정시간 : {{post.lastEditDate}}</p>
+        <p>
+            {% autoescape off %}
+            {{post.content}}
+            {% endautoescape %}
+        </p>
+        <a class="my_blue_txt" href="{% url 'edit_post' community.id post.id %}">게시글 수정</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="my_blue_txt" href="{% url 'remove_post' community.id post.id %}">게시글 삭제</a>
+        <hr>
+        <form action="{%url 'reply' community.id post.id %}" method="POST">
+            {% csrf_token %}
+            <div>
+                <input type="text" class="form-control one" name="comment" placeholder="댓글 입력">
+                <input type="submit" class="btn btn-primary btn-lg my_blue_btn" value="submit">
+            </div>
+        </form>
+
+        <div class = "comments-list">
+            <hr>
+            {% for c in comment %}
+            <div class = "reply">
+                <p class="first">{{user.username}}</p><p class="right">{{c.lastEditDate}}</p>
+                <p style="word-wrap: break-word">
+                    {% autoescape off %}
+                    {{c.content}}
+                    {% endautoescape %}
+                </p>
+                <p>
+                    <a class="my_blue_txt" href="{% url 'edit_reply' community.id post.id c.id %}">수정</a>
+                    <a class="my_blue_txt" href="{% url 'remove_reply' community.id post.id c.id %}">삭제</a>
+                </p>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

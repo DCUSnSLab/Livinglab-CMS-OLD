@@ -1,0 +1,21 @@
+body{
+    background-color: #E9E9E9;
+    margin:0;
+    padding:0;
+    overflow-y:hidden;
+    overflow-x:hidden;
+    height: 100%;
+}
+#wrap{
+    margin-top: 50px;
+    overflow-y:hidden;
+    overflow-x:hidden;
+}
+.cont_dashboard_box{
+    margin-left: 10px;
+    width:1060px;
+    height: 1920px;
+    background-color: #fefefe;
+    overflow-y:hidden;
+    overflow-x:hidden;
+}

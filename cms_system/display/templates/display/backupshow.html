@@ -1,0 +1,234 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            a {
+                color: #42b983;
+            }
+            ul {
+                text-align: center;
+            }
+            .w3-center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .container div {
+              width: 250px;
+              background-color: antiquewhite;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 1rem;
+            }
+
+              .container img {
+              width: 100%;
+              }
+
+            /* The Modal (background) */
+            .modal {
+              display: none; /* Hidden by default */
+              position: fixed; /* Stay in place */
+              z-index: 1; /* Sit on top */
+
+              left: 0;
+              top: 0;
+              width: 100%; /* Full width */
+              height: 100%; /* Full height */
+              overflow: auto; /* Enable scroll if needed */
+              background-color: rgb(0,0,0); /* Fallback color */
+              background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+
+            /* Modal Content */
+            .modal-content {
+              background-color: #fefefe;
+              margin: auto;
+              padding: 20px;
+              border: 1px solid #888;
+              width: 90%;
+                height: 100%;
+            }
+
+            /* The Close Button */
+            .close {
+              color: #aaaaaa;
+              float: right;
+              font-size: 28px;
+              font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+              color: #000;
+              text-decoration: none;
+              cursor: pointer;
+            }
+
+        </style>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/easings.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/easings.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.min.js.map"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.css" />
+        <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css" />
+    </head>
+
+    <body>
+        <div id="fullpage">
+            <div class="section">
+                <div class="slide">
+                    <div class="container">
+                     {% for content in img_list %}
+                                <div class="w3-quarter">
+
+                                <img src= "/media/{{content.upload_file}}" \
+                                     alt="No Content" \
+                                     style="width:100%; height:100%; cursor:pointer" \
+                                     onclick="showContents(this)" class="w3-hover-opacity contents">
+                                </div>
+                     {%endfor%}
+                    </div>
+                </div>
+            </div><!-- section -->
+
+            <div class="section">
+                <div class="slide">
+                    <div class="container">
+                     {% for content in vod_list %}
+
+                                <div class="w3-quarter">
+                                <video controls>
+                                        <source src= "/media/{{content.upload_file}}">
+                                    </video>
+                                </div>
+
+                     {%endfor%}
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- fullpage -->
+
+        <!-- The Modal -->
+        <div id="c_modal" class="w3-modal" onclick="this.style.display='none'">
+          <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+          <div class="w3-modal-content w3-animate-zoom">
+            <img id="cont" style="width:50%">
+          </div>
+        </div>
+
+<script type="text/javascript">
+
+//자바스크립트에서 템플릿 태그로 그대로 로드할 시 escape 문자와 함께 출력 됨
+    //이를 해결하기 위해 템플릿 태그 내 | safe 옵션을 붙이지만 json 형태로 변환할 수 없음
+    //대신 .replace(/&#x27;/g, "\""); 통해 escape 문자 삭제 가능
+
+    //현재 json으로 옮기는 도중 모든 객체를 가진 오브젝트는 json으로 변환이 되지 않는 것을 보았다
+    //이는 특정 필드가 재대로 변환되지 않는다는 뜻
+
+    //id, title, upload_file
+    // var contents_object_val_list_spec = "{{contents_object_val_list_spec}}".replace(/&#x27;/g, "\"");
+    //     console.log("contents_object_val_list_spec", contents_object_val_list_spec);
+    //
+    // const contents_object_val_list_spec_json = JSON.parse(contents_object_val_list_spec);
+    //  console.log("contents_object_val_list_spec_json", contents_object_val_list_spec_json);
+
+    //오브젝트 전체
+    let rawdata = "{{contents_list_dic}}";
+    //console.log("rawdata", rawdata);
+
+    var contents_list_dic = "{{contents_list_dic}}".replace(/&quot;/g, "\"");
+        //console.log("contents_list_dic", contents_list_dic);
+
+    const contents_list_json = JSON.parse(contents_list_dic);
+    //console.log("contents_list_json", contents_list_json);
+
+    // for(var key in contents_list_json){
+    //     console.log("각 객체", contents_list_json[key]);
+    //     console.log("id : ", contents_list_json[key]["id"]);
+    //     console.log("title : ", contents_list_json[key]["title"]);
+    //     console.log("upload_file : ", contents_list_json[key]["upload_file"]);
+    //     console.log("contents_list_json 의 키값 : ", Object.keys(contents_list_json));
+    // }
+
+//let globalVal = "";
+
+//선택 콘텐츠 정보를 비동기 방식으로 프로젝터 페이지로 전송
+    let $pushEvt = $('.contents').on('click', function() {
+        let idx = $pushEvt.index(this); // <- 변경된 코드
+        console.log(idx);
+
+        if(idx in Object.keys(contents_list_json)){
+            // console.log("각 객체", contents_list_json[idx]);
+            // console.log("id : ", contents_list_json[idx]["id"]);
+            // console.log("title : ", contents_list_json[idx]["title"]);
+            // console.log("upload_file : ", contents_list_json[idx]["upload_file"]);
+
+            let contents_data = {
+            'id': contents_list_json[idx]["id"],
+            'title': contents_list_json[idx]["title"],
+            'upload_file': contents_list_json[idx]["upload_file"],
+            //다른 요소 추가 가능
+            };
+
+            let json_contents_data = JSON.stringify(contents_data)
+
+            let globalVal = contents_list_json[idx]["upload_file"];
+            console.log("미디어 서버 전송 데이터", contents_list_json[idx]["upload_file"]);
+
+            webSocket.send(globalVal);
+            // 서버로 메시지를 전송하는 함수
+        }
+    });
+
+    // 선택 콘텐츠 시각화
+    function showContents(element) {
+          document.getElementById("cont").src = element.src;
+          document.getElementById("c_modal").style.display = "block";
+    }
+
+// Websocket connection - start
+// 웹 서버를 접속한다.
+var webSocket = new WebSocket("ws://203.250.33.53:9998");
+// 웹 서버와의 통신을 주고 받은 결과를 출력할 오브젝트를 가져옵니다.
+var messageTextArea = document.getElementById("messageTextArea");
+// 소켓 접속이 되면 호출되는 함수
+webSocket.onopen = function(message){
+    console.log("Server connect...\n");
+
+};
+// 소켓 접속이 끝나면 호출되는 함수
+webSocket.onclose = function(message){
+    console.log("Server Disconnect...\n");
+};
+// 소켓 통신 중에 에러가 발생되면 호출되는 함수
+webSocket.onerror = function(message){
+    console.log("error...\n");
+};
+// 소켓 서버로 부터 메시지가 오면 호출되는 함수.
+webSocket.onmessage = function(message){
+// 출력 area에 메시지를 표시한다.
+    console.log("Recieve From Server => "+message.data+"\n");
+};
+
+//서버 접속 끊
+function disconnect(){
+webSocket.close();
+}
+// Websocket connection - end
+
+</script>
+        <script src="{% static 'magic_grid/js/magicgrid.js' %}"></script>
+    </body>
+</html>
