@@ -10,7 +10,6 @@ def Alert(que):
     # freq = 900         # Hz
     chunk = 1024
     wav_path = 'siren.wav'
-
     while(True):
 
         # 호출 신호 확인
@@ -45,3 +44,4 @@ def Alert(que):
             p.terminate()
 
         # TODO 추후 경광등 점등 기능 추가
+
