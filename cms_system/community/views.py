@@ -16,7 +16,6 @@ def community(request, id):
     page = request.GET.get('page', '1')
     paginator = Paginator(postlist, 10)
     page_obj = paginator.page(page)
-    # blog.html과 포스트리스트도 같이 가져옴
     context = {
         'community': community,
         'post_list': postlist,
@@ -40,6 +39,7 @@ def posting(request, id, pk):
 
 # 게시글 작성
 def new_post(request, id):
+    community = get_object_or_404(Community, id=id)
     if request.method == 'POST':
         post = Post()
         post.Community_id = get_object_or_404(Community, id=id)
@@ -49,10 +49,14 @@ def new_post(request, id):
         post.lastEditDate = timezone.datetime.now()
         post.save()
         return redirect('community', id)
-    return render(request, 'communityapp/newpost.html')
+    context = {
+        'community': community,
+    }
+    return render(request, 'communityapp/newpost.html', context)
 
 # 게시글 수정
 def edit_post(request, id, pk):
+    community = get_object_or_404(Community, id=id)
     post = Post.objects.get(pk=pk)
     if request.method == 'POST':
         post.Community_id = get_object_or_404(Community, id=id)
@@ -61,7 +65,11 @@ def edit_post(request, id, pk):
         post.lastEditDate = timezone.datetime.now()
         post.save()
         return redirect('posting', id, pk)
-    return render(request, 'communityapp/editpost.html')
+    context = {
+        'community': community,
+        'post': post,
+    }
+    return render(request, 'communityapp/editpost.html', context)
 
 # 게시글 삭제
 def remove_post(request, id, pk):
@@ -97,9 +105,32 @@ def reply(request, id, pk):
     }
     return render(request, 'communityapp/posting.html', context)
 
+# 대댓글 작성
+def rereply(request, id, pk, rid):
+    community = get_object_or_404(Community, id=id)
+    if request.method == "POST":
+        comment = Comment()
+        comment.Post_id = Post.objects.get(pk=pk)
+        comment.content = request.POST['comment']
+        comment.createDate = timezone.datetime.now()
+        comment.lastEditDate = timezone.datetime.now()
+        comment.parent_comment = Comment.objects.get(id=rid)
+        comment.save()
+        return redirect('posting', id, pk)
+    post = get_object_or_404(Post, pk=pk)
+    comment = Comment.objects.filter(id=post.id)
+    post.save()
+    context = {
+        'community': community,
+        'post': post,
+        'comment': comment,
+    }
+    return render(request, 'communityapp/posting.html', context)
+
 # 댓글 수정
 def edit_reply(request, id, pk, rid):
     community = get_object_or_404(Community, id=id)
+    post = Post.objects.get(pk=pk)
     comment = Comment.objects.get(id=rid)
     if request.method == "POST":
         comment.content = request.POST['comment']
@@ -108,6 +139,7 @@ def edit_reply(request, id, pk, rid):
         return redirect('posting', id, pk)
     context = {
         'community': community,
+        'post': post,
         'comment': comment,
     }
     return render(request, 'communityapp/editreply.html', context)
@@ -115,12 +147,14 @@ def edit_reply(request, id, pk, rid):
 # 댓글 삭제
 def remove_reply(request, id, pk, rid):
     community = get_object_or_404(Community, id=id)
+    post = Post.objects.get(pk=pk)
     comment = Comment.objects.get(id=rid)
     if request.method == 'POST':
         comment.delete()
         return redirect('posting', id, pk)
     context = {
         'community': community,
+        'post': post,
         'comment': comment,
     }
     return render(request, 'communityapp/removereply.html', context)

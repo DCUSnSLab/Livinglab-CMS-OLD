@@ -28,6 +28,7 @@
       </div>
     </div>
     <div class="my_center">
+        <a href="{% url 'posting' community.id post.id %}" class="my_right my_blue_txt">뒤로가기</a><br>
         <form method="POST"> <!--# 내부의 정보를 한번에 서버로 전송 GET은 정보를 가져옴, POST는 정보를 서버에 전송하여 서버 DB에 보낸 정보를 저장-->
             {% csrf_token %}
             제목<input type="text" class="form-control" name="postname"><br>
