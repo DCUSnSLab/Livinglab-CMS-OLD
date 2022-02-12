@@ -27,28 +27,27 @@
 	</head>
 <body>
 
+{#<div class="container">#}
+{##}
+{#    {% for content in contents_list %}#}
+{##}
+{#        <img width="300px" height="500px" src = "/media/{{content.upload_file}}" alt="NO Content">#}
+{#    <p>콘텐츠 번호 : {{content.id}}</p>#}
+{#    <p>콘텐츠 제목 : {{content.title}}</p>#}
+{##}
+{#    <button><a href = "{% url 'contents:update' content.id %}">콘텐츠 수정</a></button>#}
+{#    <button><a href = "{% url 'contents:delete' content.id %}">콘텐츠 삭제</a></button>#}
+{#        <hr>#}
+{#    {%endfor%}#}
+{#</div>#}
+
 <div class="container">
-
-    {% for content in contents_list %}
-
-        <img width="300px" height="500px" src = "/media/{{content.upload_file}}" alt="NO Content">
-    <p>콘텐츠 번호 : {{content.id}}</p>
-    <p>콘텐츠 제목 : {{content.title}}</p>
-
-    <button><a href = "{% url 'contents:update' content.id %}">콘텐츠 수정</a></button>
-    <button><a href = "{% url 'contents:delete' content.id %}">콘텐츠 삭제</a></button>
-        <hr>
-    {%endfor%}
-</div>
-
-<div class="container">
-	 <div class="w3-top" style="margin-left: -70px">
+	 <div class="w3-top" style="margin-left: -80px; right:0px;">
              <div class="w3-bar w3-black w3-card">
                  <a href="/display/signage" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="justify-content: center;" >GALLERY</a>
                  <a href="#" class="w3-bar-item w3-button w3-padding-large" style="justify-content: center;">DASHBOARD</a>
                  <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="justify-content: center;" >COMMUNITY</a>
              </div>
-
 	</div>
 
 <!-- Begin Site Title
@@ -70,28 +69,35 @@
 		<h2><span>All Works</span></h2>
 	</div>
 	<div class="card-columns listfeaturedtag">
-
+{% for content in contents_list %}
 		<!-- begin post -->
 		<div class="card">
 			<div class="row">
 				<div class="col-md-5 wrapthumbnail">
 					<a href="post.html">
-						<div class="thumbnail" style="background-image:url(assets/img/demopic/1.jpg);">
-						</div>
+{#                        <img class=""#}
+                        <div class="thumbnail" style="background-image:url(/media/{{content.upload_file}});"></div>
+{#						<div class="thumbnail" style="background-image:url(assets/img/demopic/1.jpg);">#}
+{#						</div>#}
 					</a>
 				</div>
 				<div class="col-md-7">
 					<div class="card-block">
-						<h2 class="card-title"><a href="post.html">작품이름</a></h2>
-						<h4 class="card-text">작품설명</h4>
+						<h2 class="card-title"><a href="post.html">{{content.title}}</a></h2>
+{#						<h4 class="card-text">작품설명</h4>#}
 						<div class="metafooter">
 							<div class="wrapfooter">
 								<span class="meta-footer-thumb">
-								<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+{#								<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>#}
 								</span>
 								<span class="author-meta">
-								<span class="post-name"><a href="author.html">Sal</a></span><br/>
-								<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제 </span>
+								<span class="post-name"></span><br/>
+								<span class="post-date">날짜정보</span>
+                                    <span class="dot"></span>
+                                    <span class="post-read">
+                                        <a class="a1" href="{% url 'contents:update' content.id %}"> 수정 </a>
+									<a class="a2" href="{% url 'contents:delete' content.id %}"> 삭제 </a>
+                                    </span>
 								</span>
 								<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
 							</div>
@@ -101,260 +107,10 @@
 			</div>
 		</div>
 		<!-- end post -->
-
-		<!-- begin post -->
-		<div class="card">
-			<div class="row">
-				<div class="col-md-5 wrapthumbnail">
-					<a href="post.html">
-						<div class="thumbnail" style="background-image:url(assets/img/demopic/2.jpg);">
-						</div>
-					</a>
-				</div>
-				<div class="col-md-7">
-					<div class="card-block">
-						<h2 class="card-title"><a href="post.html">작품이름</a></h2>
-						<h4 class="card-text">작품설명</h4>
-						<div class="metafooter">
-							<div class="wrapfooter">
-								<span class="meta-footer-thumb">
-								<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-								</span>
-								<span class="author-meta">
-								<span class="post-name"><a href="author.html">Sal</a></span><br/>
-								<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제</span>
-								</span>
-								<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--end post -->
-
-		<!-- begin post -->
-		<div class="card">
-			<div class="row">
-				<div class="col-md-5 wrapthumbnail">
-					<a href="post.html">
-						<div class="thumbnail" style="background-image:url(assets/img/demopic/3.jpg);">
-						</div>
-					</a>
-				</div>
-				<div class="col-md-7">
-					<div class="card-block">
-						<h2 class="card-title"><a href="post.html">작품이름</a></h2>
-						<h4 class="card-text">작품설명</h4>
-						<div class="metafooter">
-							<div class="wrapfooter">
-								<span class="meta-footer-thumb">
-								<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-								</span>
-								<span class="author-meta">
-								<span class="post-name"><a href="author.html">Sal</a></span><br/>
-								<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제</span>
-								</span>
-								<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end post -->
-
-		<!-- begin post -->
-		<div class="card">
-			<div class="row">
-				<div class="col-md-5 wrapthumbnail">
-					<a href="post.html">
-						<div class="thumbnail" style="background-image:url(assets/img/demopic/4.jpg);">
-						</div>
-					</a>
-				</div>
-				<div class="col-md-7">
-					<div class="card-block">
-						<h2 class="card-title"><a href="post.html">작품이름</a></h2>
-						<h4 class="card-text">작품설명</h4>
-						<div class="metafooter">
-							<div class="wrapfooter">
-								<span class="meta-footer-thumb">
-								<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-								</span>
-								<span class="author-meta">
-								<span class="post-name"><a href="author.html">Sal</a></span><br/>
-								<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제</span>
-								</span>
-								<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end post -->
-
+        {%endfor%}
 	</div>
 	</section>
 	<!-- End Featured
-	================================================== -->
-
-	<!-- Begin List Posts
-	================================================== -->
-	<section class="recent-posts">
-<!--	<div class="section-title">-->
-<!--		<h2><span>All Stories</span></h2>-->
-<!--	</div>-->
-<!--	<div class="card-columns listrecent">-->
-
-		<!-- begin post -->
-		<div class="card">
-			<a href="post.html">
-				<img class="img-fluid" src="assets/img/demopic/5.jpg" alt="">
-			</a>
-			<div class="card-block">
-				<h2 class="card-title"><a href="post.html">제목</a></h2>
-				<h4 class="card-text">작품설명</h4>
-				<div class="metafooter">
-					<div class="wrapfooter">
-						<span class="meta-footer-thumb">
-						<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-						</span>
-						<span class="author-meta">
-						<span class="post-name"><a href="author.html">Sal</a></span><br/>
-						<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제</span>
-						</span>
-						<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end post -->
-
-		<!-- begin post -->
-		<div class="card">
-			<a href="post.html">
-				<img class="img-fluid" src="assets/img/demopic/6.jpg" alt="">
-			</a>
-			<div class="card-block">
-				<h2 class="card-title"><a href="post.html">제목</a></h2>
-				<h4 class="card-text">작품설명</h4>
-				<div class="metafooter">
-					<div class="wrapfooter">
-						<span class="meta-footer-thumb">
-						<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-						</span>
-						<span class="author-meta">
-						<span class="post-name"><a href="author.html">Sal</a></span><br/>
-						<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제</span>
-						</span>
-						<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end post -->
-
-		<!-- begin post -->
-		<div class="card">
-			<a href="post.html">
-				<img class="img-fluid" src="assets/img/demopic/7.jpg" alt="">
-			</a>
-			<div class="card-block">
-				<h2 class="card-title"><a href="post.html">제목</a></h2>
-				<h4 class="card-text">작품설명</h4>
-				<div class="metafooter">
-					<div class="wrapfooter">
-						<span class="meta-footer-thumb">
-						<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-						</span>
-						<span class="author-meta">
-						<span class="post-name"><a href="author.html">Sal</a></span><br/>
-						<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제</span>
-						</span>
-						<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end post -->
-
-		<!-- begin post -->
-		<div class="card">
-			<a href="post.html">
-				<img class="img-fluid" src="assets/img/demopic/8.jpg" alt="">
-			</a>
-			<div class="card-block">
-				<h2 class="card-title"><a href="post.html">제목</a></h2>
-				<h4 class="card-text">작품 설명</h4>
-				<div class="metafooter">
-					<div class="wrapfooter">
-						<span class="meta-footer-thumb">
-						<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-						</span>
-						<span class="author-meta">
-						<span class="post-name"><a href="author.html">Sal</a></span><br/>
-						<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제</span>
-						</span>
-						<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end post -->
-
-		<!-- begin post -->
-		<div class="card">
-			<a href="post.html">
-				<img class="img-fluid" src="assets/img/demopic/9.jpg" alt="">
-			</a>
-			<div class="card-block">
-				<h2 class="card-title"><a href="post.html">제목</a></h2>
-				<h4 class="card-text">작품설명</h4>
-				<div class="metafooter">
-					<div class="wrapfooter">
-						<span class="meta-footer-thumb">
-						<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-						</span>
-						<span class="author-meta">
-						<span class="post-name"><a href="author.html">Sal</a></span><br/>
-						<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제</span>
-						</span>
-						<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end post -->
-
-		<!-- begin post -->
-		<div class="card">
-			<a href="post.html">
-				<img class="img-fluid" src="assets/img/demopic/10.jpg" alt="">
-			</a>
-			<div class="card-block">
-				<h2 class="card-title"><a href="post.html">제목</a></h2>
-				<h4 class="card-text">작품설명</h4>
-				<div class="metafooter">
-					<div class="wrapfooter">
-						<span class="meta-footer-thumb">
-						<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-						</span>
-						<span class="author-meta">
-						<span class="post-name"><a href="author.html">Sal</a></span><br/>
-						<span class="post-date">날짜정보</span><span class="dot"></span><span class="post-read">수정 삭제</span>
-						</span>
-						<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end post -->
-
-	</div>
-	</section>
-	<!-- End List Posts
 	================================================== -->
 
 	<!-- Begin Footer

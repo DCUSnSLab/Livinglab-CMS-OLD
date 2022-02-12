@@ -44,13 +44,15 @@ def signageView(request):
 
 def picDetail(request, id):
     # print("You are in ContentUpdate, Contents ID is %d. and Contents all object %s " %(id, contents))
-
+    # user_img2 =
+    # user_list = list(CustomUser.objects.all().values('user_profile'))
     contents = Contents.objects.get(id=id)
     cont_user_id = Contents.objects.filter(id=id).values("userFK")
     description_user = CustomUser.objects.filter(user__in=cont_user_id).values('user_description')
+    user_img = CustomUser.objects.filter(user__in=cont_user_id).values('user_profile')
     # print("You are in ContentUpdate, Contents ID is %d. and all object '%s' and 저작자 %s 저작자 정보 %s"
     #       % (id, contents, cont_user_id, description_user))
-    print(" %s 저작자 %s 저작자 정보 %s" % (contents, cont_user_id, description_user))
+    print(" %s 저작자 %s 저작자 정보 %s 사진 정보 %s" % (contents, cont_user_id, description_user, user_img))
 
     # cont_user_id = Contents.objects.get(id=id)
     # description2 = CustomUser.objects.filter(id=cont_user_id).values("user_description")
@@ -76,6 +78,8 @@ def picDetail(request, id):
         'contents_in_themeValue': contents_in_themeValue,
         'description_user': description_user,
         'content2server': content2server,
+        'user_img': user_img,
+        # 'user_list': user_list,
     }
 
     return render(request, 'display/picdetail.html', context)
