@@ -182,5 +182,6 @@ def SendMessage2Facil(eventMsg, location, time):
     # TODO 기관 연계여부가 확정될 경우 해당 기관에 메시지를 보내는 기능 구현
 
 if __name__ == '__main__':
+    print("변경 내역")
     main()
 
