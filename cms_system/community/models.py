@@ -2,6 +2,9 @@ from django.db import models
 from tinymce.models import HTMLField
 
 # Create your models here.
+import user.models
+
+
 class Community(models.Model):
     id = models.AutoField(primary_key=True)  # 게시판id
     name = models.CharField(max_length=50)  # 게시판제목
@@ -11,6 +14,7 @@ class Community(models.Model):
     def __str__(self):
         return self.name
 
+
 class Post(models.Model):
     id = models.AutoField(primary_key=True)  # 게시글id
     title = models.TextField()  # 게시글제목
@@ -19,11 +23,12 @@ class Post(models.Model):
     createDate = models.DateTimeField(auto_now_add=True)  # 게시글작성시간
     lastEditDate = models.DateTimeField(auto_now_add=True)  # 게시글수정시간
     Community_id = models.ForeignKey(Community, default=1, on_delete=models.CASCADE)  # 게시판
-    # auth_user_id
+    auth_user_id = models.ForeignKey(user.models.CustomUser, default=1, on_delete=models.CASCADE)
 
     # postname이 postobject 대신
     def __str__(self):
         return self.title
+
 
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)  # 댓글id
@@ -31,7 +36,8 @@ class Comment(models.Model):
     createDate = models.DateTimeField(auto_now_add=True)  # 댓글작성시간
     lastEditDate = models.DateTimeField(auto_now_add=True)  # 댓글수정시간
     Post_id = models.ForeignKey(Post, on_delete=models.CASCADE)  # 게시글
-    # auth_user_id
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True)  # 대댓글
+    auth_user_id = models.ForeignKey(user.models.CustomUser, default=1, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.content
