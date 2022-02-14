@@ -22,6 +22,7 @@
       </div>
     </div>
     <div class="my_center">
+        <a href="{% url 'posting' community.id post.id %}" class="my_right my_blue_txt">뒤로가기</a><br>
         <form method="POST">
         {% csrf_token %}
         <h3>{{ post.title }} - 삭제하기</h3>

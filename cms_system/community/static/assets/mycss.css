@@ -82,5 +82,7 @@ table, th, td {
     background-color: #ddd;
 }
 .my_center_txt {
-    text-align: center
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
