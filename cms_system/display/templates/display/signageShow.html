@@ -29,23 +29,21 @@
                 <div class="nav_blank"></div>
                 <h3 class="imgText">이미지 콘텐츠</h3>
                 <div class="gray-line"></div>
-                    <div class="container">
+            <div class="container_media" style="position: relative">
                      {% for content in contents_list %}
-                        <div class="backColor">
-                                <div>
-                                <a href="{% url 'display:picture' content.id%}">
-                                <img src= "/media/{{content.upload_file}}" \
-                                     alt="No Content" \
-                                     style="width:107%; height:100%; margin-bottom: -20px; margin-left: -10px; margin-right: 70px;cursor:pointer; ">
-                                </a>
-<!--                                    <span class="gradi_img_box">-->
-                                    <div class="imText2" >#{{content.theme_id}}</div>
-                                    <div class="imText1">{{content.title}}</div>
-<!--                                    </span>-->
-                                </div>
-                        </div>
-                        {%endfor%}
-                    </div>
+                    <a href="{% url 'display:picture' content.id%}">
+                        <span class="media_content_box" style="position: relative">
+                            <img class="media_preview"src="/media/{{content.upload_file}}">
+                            <div class="imText2" style="left: 40px; bottom: -40px;">#{{content.theme_id}}</div>
+                            <div class="imText2" style="left: 40px; bottom: -70px;">{{content.title}}</div>
+                            <div class="imText" style="left: 40px; bottom: -90px;">Artist</div>
+                            <span class="shadow_box">
+                                <div class="shadow"></div>
+                            </span>
+                        </span>
+                    </a>
+                    {%endfor%}
+                </div>
                 </div>
 
                 <h3 style="margin-left: 30px;">동영상 콘텐츠</h3>
@@ -65,7 +63,6 @@
                     </a>
                     {%endfor%}
                 </div>
-
                 </div>
 
         <script type="text/javascript"></script>

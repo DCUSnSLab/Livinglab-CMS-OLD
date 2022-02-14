@@ -1,52 +1,146 @@
-{% block content %}
 
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="assets/img/favicon.ico">
+<title>Mediumish - A Medium style template by WowThemes.net</title>
+<!-- Bootstrap core CSS -->
+<link href="{% static './assets/css/bootstrap.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- Fonts -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="{% static './assets/css/mediumish.css' %}" rel="stylesheet">
+<!--	<link href="/contents/static/assets/css/mediumish.css" rel="stylesheet">-->
 </head>
-
 <body>
-this is contents update
-<form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
 
-        <p>콘텐츠 번호 : {{contents_info.id}}</p>
-        <hr>
-        <p>콘텐츠 제목 : {{contents_info.title}}</p>
-        <p>콘텐츠 제목 변경 : {{contentsUploadForm.title}}</p>
-        <hr>
-        <p>콘텐츠 저작자 : {{contents_info.userFK_id}}</p>
-        <hr>
-        <p>콘텐츠 테마 : {{contents_in_themeValue}}</p>
-        <p>콘텐츠 테마 변경
-            <select name = "Theme">
-            <option disabled = "True" selected>콘텐츠 테마 선택</option>
-            {% for theme in theme_list %}
-            <option>{{theme.themeValue}}</option>
-            {% endfor %}
-        </select></p>
-        <hr>
-        <p>콘텐츠 타입 : {{contents_info.contentType}}</p>
-        <p>콘텐츠 타입 변경 : {{contentsUploadForm.contentType}}</p>
-        <hr>
-        <p>심사 여부 : {{contents_info.is_Accepted}}</p>
-        <hr>
-        <p>콘텐츠 파일명 : {{contents_info.upload_file}}</p>
-        <img width="300px" height="500px" src = "/media/{{contents_info.upload_file}}" alt="NO Content">
-        <p>콘텐츠 파일 변경 : {{contentsUploadForm.upload_file}}</p>
-        <hr>
-        <p>콘텐츠 소개글 : {{description_info.description}}</p>
-        <p>콘텐츠 소개글 변경 : {{contentsDescriptionForm.description}}</p>
-        <hr>
-        <p>등록 일자 : {{contents_info.createDate}}</p>
-        <hr>
-        <p>수정 일자 : {{contents_info.lastEditDate}}</p>
+<!-- Begin Nav
+================================================== -->
+<!--<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">-->
+<!--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--<span class="navbar-toggler-icon"></span>-->
+<!--</button>-->
+<div class="container">
+	 <div class="w3-top" style="margin-left: -80px; right: 0px">
+             <div class="w3-bar w3-black w3-card">
+                 <a href="/display/signage" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="justify-content: center;" >GALLERY</a>
+                 <a href="#" class="w3-bar-item w3-button w3-padding-large" style="justify-content: center;">DASHBOARD</a>
+                 <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="justify-content: center;" >COMMUNITY</a>
+             </div>
+	</div>
+<!--</div>-->
+<!--</nav>-->
+<!-- End Nav
+================================================== -->
+
+<!-- Begin Site Title
+================================================== -->
+<div class="container" >
+	<div class="mainheading">
+		<h1 class="sitetitle">EDIT</h1>
+		<p class="lead">
+<!--            글씨적어도됨 -->
+		</p>
+	</div>
+<!-- End Site Title
+================================================== -->
+
+	<!-- Begin Featured
+	================================================== -->
+	<section class="featured-posts">
+        <div class="section-title">
+		<h2><span>{{contents_info.title}}</span></h2>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="basic_inform">
+            <p>콘텐츠 번호 : {{contents_info.id}}</p>
+            <hr>
+            <p>등록 일자 : {{contents_info.createDate}}</p>
+            <p>수정 일자 : {{contents_info.lastEditDate}}</p>
+            </div>
+            <hr>
+            <p>콘텐츠 제목 : {{contents_info.title}}</p>
+            <p>콘텐츠 제목 변경 : {{contentsUploadForm.title}}</p>
+            <hr>
+            <p>콘텐츠 저작자 : {{contents_info.userFK_id}}</p>
+            <hr>
+            <p>콘텐츠 테마 : {{contents_in_themeValue}}</p>
+            <p>콘텐츠 테마 변경
+                <select name = "Theme">
+                <option disabled = "True" selected>콘텐츠 테마 선택</option>
+                {% for theme in theme_list %}
+                <option>{{theme.themeValue}}</option>
+                {% endfor %}
+            </select></p>
+            <hr>
+            <p>콘텐츠 타입 : {{contents_info.contentType}}</p>
+            <p>콘텐츠 타입 변경 : {{contentsUploadForm.contentType}}</p>
+            <hr>
+            <p>심사 여부 : {{contents_info.is_Accepted}}</p>
+            <hr>
+            <p>현재 콘텐츠 파일명 : {{contents_info.upload_file}}</p>
+                <p>콘텐츠 파일 변경 : </p>
+            <div class="img_box" style="text-align: left">
+            <img width="30%" height="20%" src = "/media/{{contents_info.upload_file}}" alt="NO Content">
+                </div>
+                 <p class="btn btn-primary col-12" style="top: 10px; border-radius: 10px;cursor: pointer;">{{contentsUploadForm.upload_file}}</p>
+            <hr>
+            <p>콘텐츠 소개글 : {{description_info.description}}</p>
+            <p>콘텐츠 소개글 변경 : {{contentsDescriptionForm.description}}</p>
+            <hr>
+            <p>등록 일자 : {{contents_info.createDate}}</p>
+            <hr>
+            <p>수정 일자 : {{contents_info.lastEditDate}}</p>
+               <br>
+                <div class="back_submit_choice_container" style="float: right">
+                    <input type="submit" class="btn btn-primary col-12" style="cursor: pointer; border-radius: 10px; width: 60px; bottom: 10px;" value="변경">
+                    <a class="btn btn-primary col-12" style="border-radius: 10px; width: 60px; bottom: 10px;" href="{% url 'contents:dashboard' %}">취소</a>
+                </div>
+        </form>
 
 
+	</section>
+	<!-- End List Posts
+	================================================== -->
 
-    <input type="submit" class="btn btn-primary col-12" value="Submit">
-    </form>
+	<!-- Begin Footer
+	================================================== -->
+	<div class="footer">
+		<p class="pull-left">
+			 Copyright &copy; 2022 CMS
+		</p>
+		<p class="pull-right">
+			 Mediumish Theme by <a target="_blank" href="https://www.wowthemes.net">WowThemes.net</a>
+		</p>
+		<div class="clearfix">
+		</div>
+	</div>
+	<!-- End Footer
+	================================================== -->
 
+</div>
+<!-- /.container -->
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!--<script src="/contents/static/assets/js/jquery.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<!--<script src="/contents/static/assets/js/bootstrap.min.js"></script>-->
+<!--<script> src="{% static './assets/js/ie10-viewport-bug-workaround.js' %}"></script> -->
+<!--<script src="/contents/static/assets/js/ie10-viewport-bug-workaround.js"></script>-->
+<script src="{% static './assets/js/ie10-viewport-bug-workaround.js' %}"></script>
+<script src="{% static './assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static './assets/js/jquery.min.js' %}"></script>
+</div>
 </body>
+</html>
 
-{% endblock %}
