@@ -35,7 +35,7 @@
             {% for list in page_obj %}
             <tr class="nav" style="height:50px">
                 <td style="width:60%"><a class="my_color_black" href="{% url 'posting' community.id list.id %}">{{list.title}}</a></td>
-                <td style="text-align: center">{{user.username}}</td>
+                <td style="text-align: center">{{list.auth_user_id.nickname}}</td>
                 <td style="text-align: center">{{list.lastEditDate}}</td>
             </tr>
             {% endfor %}

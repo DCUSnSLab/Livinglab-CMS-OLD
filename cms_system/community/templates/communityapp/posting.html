@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="{% static './assets/main.82cfd66e.css' %}" rel="stylesheet">
     <link href="{% static './assets/mycss.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
     <title>post</title>
 </head>
 <body>
@@ -24,7 +25,7 @@
     <div class="my_center">
         <a href="{% url 'community' community.id %}" class="my_right my_blue_txt">목록</a>
         <p>제목 : {{post.title}}</p>
-        <p>작성자 : {{user.username}}</p>
+        <p>작성자 : {{post.auth_user_id.nickname}}</p>
         <p>작성시간 : {{post.createDate}} &nbsp;&nbsp;&nbsp;&nbsp; 수정시간 : {{post.lastEditDate}}</p>
         <p>
             {% autoescape off %}
@@ -37,16 +38,20 @@
         <form action="{%url 'reply' community.id post.id %}" method="POST">
             {% csrf_token %}
             <div>
-                <input type="text" class="form-control one" name="comment" placeholder="댓글 입력">
+                <input type="text" class="form-control input one" name="comment" placeholder="댓글 입력">
                 <input type="submit" class="btn btn-primary btn-lg my_blue_btn" value="submit">
+                <div class="simple-keyboard"></div>
+              <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+              <script src="src/index.js"></script>
             </div>
         </form>
 
         <div class = "comments-list">
             <hr>
             {% for c in comment %}
+            {% if not c.parent_comment %}
             <div class = "reply">
-                <p class="first">{{user.username}}</p><p class="right">{{c.lastEditDate}}</p>
+                <p class="first">{{c.auth_user_id.nickname}}</p><p class="right">{{c.lastEditDate}}</p>
                 <p style="word-wrap: break-word">
                     {% autoescape off %}
                     {{c.content}}
@@ -56,10 +61,52 @@
                     <a class="my_blue_txt" href="{% url 'edit_reply' community.id post.id c.id %}">수정</a>
                     <a class="my_blue_txt" href="{% url 'remove_reply' community.id post.id c.id %}">삭제</a>
                 </p>
+                <form action="{%url 'rereply' community.id post.id c.id %}" method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <input type="text" class="form-control one" name="comment" placeholder="대댓글 입력">
+                        <input type="submit" class="btn btn-primary btn-lg my_blue_btn" value="submit">
+                    </div>
+                </form>
+                {% for r in comment %}
+                {% if r.parent_comment == c %}
+                <br>
+                 <div class="reply" style="padding-left: 50px;">
+                    <p style="float: left; width: 60%;">{{r.auth_user_id.nickname}}</p><p class="right">{{r.lastEditDate}}</p>
+                    <p style="word-wrap: break-word;">
+                        {% autoescape off %}
+                        {{r.content}}
+                        {% endautoescape %}
+                    </p>
+                    <p>
+                        <a class="my_blue_txt" href="{% url 'edit_reply' community.id post.id r.id %}">수정</a>
+                        <a class="my_blue_txt" href="{% url 'remove_reply' community.id post.id r.id %}">삭제</a>
+                    </p>
+                 </div>
+                {% endif %}
+                {% endfor %}
                 <hr>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
 </body>
+<script>
+    const Keyboard = window.SimpleKeyboard.default;
+
+    const myKeyboard = new Keyboard({
+      onChange: input => onChange(input),
+      onKeyPress: button => onKeyPress(button)
+    });
+
+    function onChange(input) {
+      document.querySelector(".input").value = input;
+      console.log("Input changed", input);
+    }
+
+    function onKeyPress(button) {
+      console.log("Button pressed", button);
+    }
+</script>
 </html>
