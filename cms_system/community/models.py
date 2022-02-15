@@ -23,7 +23,7 @@ class Post(models.Model):
     createDate = models.DateTimeField(auto_now_add=True)  # 게시글작성시간
     lastEditDate = models.DateTimeField(auto_now_add=True)  # 게시글수정시간
     Community_id = models.ForeignKey(Community, default=1, on_delete=models.CASCADE)  # 게시판
-    userFK = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column="userFK", null=False)
+    userFK = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column="userFK", null=True)
 
     # postname이 postobject 대신
     def __str__(self):

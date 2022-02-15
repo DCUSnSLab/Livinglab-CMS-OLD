@@ -99,10 +99,10 @@ DATABASES = {
         'CONN_MAX_AGE': 0,
         'ENGINE': 'django.db.backends.mysql',
         'HOST': 'localhost',
-        'NAME': 'livinglab01',
-        'PASSWORD': '011021',
+        'NAME': 'livinglab_06',
+        'PASSWORD': '0110',
         'PORT': '3306',
-        'USER': 'master'
+        'USER': 'master06'
     }
 }
 

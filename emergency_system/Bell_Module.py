@@ -4,27 +4,30 @@ import pymysql              # MySQL 연결
 import Alert as at          # 비상경보
 import time, threading, json, argparse
 import requests, re         # 연결 PC의 IP 주소 파악
-from multiprocessing import Queue
+# from multiprocessing import Queue
 from queue import Queue
+import MQTTtranfer as MQ
 from collections import OrderedDict
+import O2OInfo
 
 def main():
 
-    parser = argparse.ArgumentParser(description='Argument 객체')
-    parser.add_argument('-ip', type=str, help='central server ip for data trafer') # 호출데이터 전송할 서버 IP
-    parser.add_argument('-port', type=int, help='central server port for data trafer')
-    args = parser.parse_args()  # 입력 Argument들을 args에 할당, argument 값 저장
+    # parser = argparse.ArgumentParser(description='Argument 객체')
+    # parser.add_argument('-ip', type=str, help='central server ip for data trafer') # 호출데이터 전송할 서버 IP
+    # parser.add_argument('-port', type=int, help='central server port for data trafer')
+    # args = parser.parse_args()  # 입력 Argument들을 args에 할당, argument 값 저장
 
-    ip = args.ip
-    port = args.port
-    print("ip : ", ip, "type : ", type(ip), "port : ", port, "type : ", type(port))
+    # ip = args.ip
+    # port = args.port
+    # print("ip : ", ip, "type : ", type(ip), "port : ", port, "type : ", type(port))
 
-    DB = SettingDB(ip, port)
-    deviceLoc = FindDevLoc(DB)
-    print("현재 시설명 : ", deviceLoc)
+    # DB = SettingDB(ip, port)
+    # deviceLoc = FindDevLoc(DB)
+    # print("현재 시설명 : ", deviceLoc)
 
-    que = Queue()
-
+    que1 = Queue()
+    que2 = Queue()
+    ArduSerial = None
     try:
         ard_reciver = SerialFinder()            # 현재 연결된 모듈의 시리얼 포트 찾기
         OSINFO = CheckOS(ard_reciver)           # 연결 모듈의 OS 확인
@@ -44,15 +47,17 @@ def main():
     except Exception as e:
         print("현재 비상벨모듈이 연결되어 있지 않습니다.", e)
 
-
-
-    serialTranferThread = threading.Thread(target=SerialTranfer, args=(ArduSerial, deviceLoc, DB, que, ))
-    AlertThread = threading.Thread(target=at.Alert, args=(que, ))
+    serialTranferThread = threading.Thread(target=SerialTranfer, args=(ArduSerial, que1, que2))
+    AlertThread = threading.Thread(target=at.Alert, args=(que1, ))
+    MQTTransfer = threading.Thread(target=MQ.Transfer, args=(que2,))
 
     serialTranferThread.start()
     AlertThread.start()
+    MQTTransfer.start()
     serialTranferThread.join()
     AlertThread.join()
+    MQTTransfer.join()
+
 
 def SettingDB(ip, port):
 
@@ -120,35 +125,6 @@ def SerialFinder(): # 현재 연결된 비상벨모듈의 시링얼 포트번호
             pass
     return result
 
-def SerialTranfer(ArduSerial, deviceLoc, DB, que): # 비상벨 모듈의 호출 신호 수신
-
-    while(True):
-        event = ArduSerial.readline()         # 이벤트 여부
-
-        if event is not None:
-            evt = str(event)
-            evt = evt.split('\'')[1]
-            evt = evt.split('\\')[0]
-            que.put(evt)
-
-            time_data = time.localtime()
-            current_time = str(time_data.tm_year) + "-" + \
-                           str(time_data.tm_mon) + "-" + \
-                           str(time_data.tm_mday) + " " + \
-                           str(time_data.tm_hour) + ":" + \
-                           str(time_data.tm_min) + "+" + \
-                           str(time_data.tm_sec)
-
-            print("비상벨 호출 메시지 : ", evt)
-            print("이벤트발생 위치 : ", deviceLoc)
-            print("호출 시간 : ", current_time)
-
-            Insert2DB(deviceLoc, current_time, DB)
-            SendMessage2Facil(evt, deviceLoc, current_time)
-        else:
-            pass
-
-
 def Insert2DB(crnt_loc, crnt_time, DB):
 
     try:
@@ -171,15 +147,22 @@ def Insert2DB(crnt_loc, crnt_time, DB):
     finally:
         pass
 
-def SendMessage2Facil(eventMsg, location, time):
-    event_msg = OrderedDict()
-    event_msg["message"] = eventMsg
-    event_msg["location"] = location
-    event_msg["time"] = time
+def SerialTranfer(ArduSerial, que1 ,que2, deviceLoc=None, DB=None): # 비상벨 모듈의 호출 신호 수신
 
-    print(json.dumps(event_msg, ensure_ascii=False, indent="\t"))
+    while(True):
+        event = ArduSerial.readline()         # 이벤트 여부
 
-    # TODO 기관 연계여부가 확정될 경우 해당 기관에 메시지를 보내는 기능 구현
+        if event is not None:
+            evt = str(event)
+            evt = evt.split('\'')[1]
+            evt = evt.split('\\')[0]
+            que1.put(evt)
+            que2.put(1)
+
+            # Insert2DB(deviceLoc, current_time, DB)
+            # SendMessage2Facil(evt, deviceLoc, current_time)
+        # else:
+        #     pass
 
 if __name__ == '__main__':
     main()
