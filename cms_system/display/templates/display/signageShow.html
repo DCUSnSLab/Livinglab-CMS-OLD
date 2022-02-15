@@ -15,8 +15,8 @@
         <div id="wrap">
             <header id="headerArea">
                 <div class="w3-top">
-                  <div class="w3-bar w3-black w3-card">
-                    <a href="#" class="w3-bar-item w3-button w3-padding-large" \
+                  <div class="w3-bar w3-black w3-card" style="font-size: 3vw; font-family: 'MinSans-Medium' !important;">
+                    <a href="." class="w3-bar-item w3-button w3-padding-large" \
                        style="justify-content: center;">GALLERY</a>
                     <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" \
                        style="justify-content: center;" >COMMUNITY</a>
@@ -24,7 +24,7 @@
                 </div>
 
             </header>
-            <div class="section">
+            <div class="section" style="margin-top: 20px;">
             <div class="section" id="section1">
                 <div class="nav_blank"></div>
                 <h3 class="imgText">이미지 콘텐츠</h3>
@@ -33,7 +33,7 @@
                      {% for content in contents_list %}
                     <a href="{% url 'display:picture' content.id%}">
                         <span class="media_content_box" style="position: relative">
-                            <img class="media_preview"src="/media/{{content.upload_file}}">
+                            <img class="media_preview" style="height: 100%; width: 100%; object-fit: cover;" src="/media/{{content.upload_file}}">
                             <div class="imText2" style="left: 40px; bottom: -40px;">#{{content.theme_id}}</div>
                             <div class="imText2" style="left: 40px; bottom: -70px;">{{content.title}}</div>
                             <div class="imText" style="left: 40px; bottom: -90px;">Artist</div>
@@ -46,13 +46,15 @@
                 </div>
                 </div>
 
+                <div class="section_blank_box" style="height: 300px;"></div>
+
                 <h3 style="margin-left: 30px;">동영상 콘텐츠</h3>
                 <div class="gray-line"></div>
                 <div class="container_media" style="position: relative">
                      {% for content in contents_list %}
-                    <a href="{% url 'display:picture' content.id%}">
+                    <a href="{% url 'display:media' content.id%}">
                         <span class="media_content_box" style="position: relative">
-                            <img class="media_preview"src="/media/{{content.upload_file}}">
+                            <img class="media_preview" style="height: 100%; width: 100%; object-fit: cover;" src="/media/{{content.upload_file}}">
                             <div class="imText2" style="left: 40px; bottom: -40px;">#{{content.theme_id}}</div>
                             <div class="imText2" style="left: 40px; bottom: -70px;">{{content.title}}</div>
                             <div class="imText" style="left: 40px; bottom: -90px;">Artist</div>

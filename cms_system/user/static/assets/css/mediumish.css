@@ -11,6 +11,14 @@ License: https://www.wowthemes.net/freebies-license/
     font-style: normal;
 }
 
+p{
+	font-family: 'MinSans-Medium' !important;
+}
+
+.a{
+	font-size: 30px; !important;
+}
+
 body {
 	background-color: #FFFFFF;
     margin:0;
@@ -23,7 +31,7 @@ body {
 .mainheading {
 	padding:1rem 0rem;
 }
-a1{
+a {
 	color:#00ab6b;
 }
 .a2 {
@@ -458,3 +466,10 @@ ul.tags li a:hover {
 	border-radius:50%;
 	font-size:12px;
 }
+
+/*새로 추가*/
+/*.center_box{*/
+/*	float:right;*/
+/*	position: relative;*/
+/*	left: -50%;*/
+/*}*/
