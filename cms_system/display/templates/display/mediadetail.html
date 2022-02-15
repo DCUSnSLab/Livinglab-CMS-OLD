@@ -32,8 +32,12 @@
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div id="div1">
-                        <img id="picture"  style="height: 400px; width: 100%; object-fit: cover;"
-                             src = "/media/{{contents_info.upload_file}}" alt="NO Content">
+                        <video id="picture" style="height: 400px; width: 100%; object-fit: cover;" autoplay controls loop muted poster="https://cdn.pixabay.com/photo/2020/05/30/17/57/flower-5239814_960_720.jpg" preload="auto">
+                            <source src="/media/{{contents_info.upload_file}}" type="video/mp4">
+                            zzz
+                        </video>
+{#                        <img id="picture"  style="height: 400px; width: 100%; object-fit: cover;"#}
+{#                             src = "/media/{{contents_info.upload_file}}" alt="NO Content">#}
                     </div>
                 </form>
             </div>

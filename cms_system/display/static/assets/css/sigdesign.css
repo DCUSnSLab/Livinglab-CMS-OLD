@@ -48,6 +48,7 @@
                 /*font-weight: bold;*/
 
             }
+
             /*미디어 섹션 */
             .section2{
                 height: 1000px;
@@ -164,7 +165,7 @@
             .container_media{
                 display: grid;
                 grid-template-columns: 340px 340px 340px;
-                grid-template-rows: 200px 200px 200px 200px;
+                grid-template-rows: 200px 200px 200px ;
                 column-gap: 10px;
                 row-gap : 30px;
                 justify-content: center;
@@ -179,11 +180,20 @@
 
             /*미디어 프리뷰(이미지) */
             .media_preview{
+                overflow: hidden;
+                object-fit: cover;
                 margin-left: 10px;
                 margin-top:15px;
-                width: 100%;
-                height: 100%;
+                width: 30%;
+                height: 70%;
                 border-radius: 10px;
+                /*overflow: hidden;*/
+                /*width: 70px;*/
+                /*height: 70px;*/
+                /*object-fit: cover;*/
+                /*flex:auto;*/
+                /*float: left;*/
+                /*margin: 10px;*/
             }
 
             /*이미지 하단 그라데이션 영역*/
@@ -221,7 +231,7 @@
                 grid-template-columns: 340px 340px 340px;
                 grid-template-rows: 450px 450px 450px ;
                 column-gap: 10px;
-                row-gap : 30px;
+                row-gap : 50px;
                 justify-content: center;
                 margin-left: -20px;
             }
