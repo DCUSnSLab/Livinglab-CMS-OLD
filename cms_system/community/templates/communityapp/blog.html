@@ -17,7 +17,7 @@
 <body>
     <div class="w3-top">
       <div class="w3-bar w3-black w3-card">
-        <a href="{% url 'display:signage' %}" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
         <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
       </div>
     </div>
@@ -28,14 +28,14 @@
         <table style="width:100%">
             <tr class="nav">
                 <td style="width:60%">제목</td>
-                <!--td style="text-align: center">작성자</td-->
+                <td style="text-align: center">작성자</td>
                 <td style="text-align: center">작성일</td>
             </tr>
             {% if page_obj %}
             {% for list in page_obj %}
             <tr class="nav" style="height:50px">
                 <td style="width:60%"><a class="my_color_black" href="{% url 'posting' community.id list.id %}">{{list.title}}</a></td>
-                <!--td style="text-align: center">{{list.auth_user_id.nickname}}</td-->
+                <td style="text-align: center">{{list.auth_user_id.nickname}}</td>
                 <td style="text-align: center">{{list.lastEditDate}}</td>
             </tr>
             {% endfor %}

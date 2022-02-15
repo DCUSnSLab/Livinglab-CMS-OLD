@@ -18,24 +18,44 @@
 <body>
     <div class="w3-top">
       <div class="w3-bar w3-black w3-card">
-        <a href="{% url 'display:signage' %}" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
         <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
       </div>
     </div>
-    <div class="my_center">
-        <div class="detail-contents">
-            <p style="text-align: center">게시판</p>
-            <hr>
-            <div class="wrapper">
-                <table>
-                    {% for list in communitylist %}
-                        <ul class="nav my_center_txt">
-                            <li><a href="{% url 'community' list.id %}">{{list.name}}</a></li>
-                        </ul>
-                    {% endfor %}
-                </table>
-            </div>
+    <div class="detail-contents my_center">
+        <p style="text-align: center">게시판</p>
+        <hr>
+        <div class="wrapper">
+            <table>
+                {% for list in communitylist %}
+                    <ul class="nav">
+                        <li><a href="{% url 'community' list.id %}">{{list.name}}</a></li>
+                    </ul>
+                {% endfor %}
+            </table>
         </div>
     </div>
+    <!--input class="input" placeholder="Tap on the virtual keyboard to start" />
+      <div class="simple-keyboard"></div>
+
+      <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+      <script src="src/index.js"></script-->
 </body>
+<script>
+    const Keyboard = window.SimpleKeyboard.default;
+
+    const myKeyboard = new Keyboard({
+      onChange: input => onChange(input),
+      onKeyPress: button => onKeyPress(button)
+    });
+
+    function onChange(input) {
+      document.querySelector(".input").value = input;
+      console.log("Input changed", input);
+    }
+
+    function onKeyPress(button) {
+      console.log("Button pressed", button);
+    }
+</script>
 </html>

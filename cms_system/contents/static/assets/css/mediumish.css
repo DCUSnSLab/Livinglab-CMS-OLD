@@ -4,6 +4,12 @@ Copyright:WowThemes.net,https://www.wowthemes.net
 Version:1.0.1
 License: https://www.wowthemes.net/freebies-license/
 */
+@font-face {
+    font-family: 'MinSans-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body {
 	background-color: #FFFFFF;
@@ -17,7 +23,7 @@ body {
 .mainheading {
 	padding:1rem 0rem;
 }
-a {
+a1{
 	color:#00ab6b;
 }
 .a2 {

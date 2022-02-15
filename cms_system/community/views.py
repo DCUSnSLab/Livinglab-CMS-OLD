@@ -14,7 +14,7 @@ def community(request, id):
     community = get_object_or_404(Community, id=id)
     postlist = Post.objects.filter(Community_id=community.id).order_by('-createDate')
     page = request.GET.get('page', '1')
-    paginator = Paginator(postlist, 20)
+    paginator = Paginator(postlist, 10)
     page_obj = paginator.page(page)
     context = {
         'community': community,

@@ -1,462 +1,534 @@
-<!-- <!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--main 페이지 입니다.-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-<title>Livinglab_CMS</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="/static/assets/css/layout.css" rel="stylesheet" type="text/css" media="all">
+
+     <title>Gymso Fitness HTML Template</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+     <!-- MAIN CSS -->
+    <link href="{% static './assets/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static './assets/css/tooplate-gymso-style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!--
+Tooplate 2119 Gymso Fitness
+https://www.tooplate.com/view/2119-gymso-fitness
+-->
 </head>
-<body id="top">
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
 
-<div class="wrapper row0">
-  <div id="topbar" class="hoc clear">
-    <div class="fl_left">
+    <!-- MENU BAR -->
+     <div class="w3-top">
+         <div class="w3-bar w3-black w3-card w3-center" >
+             {% if user.is_active %}
+             <a href="{% url 'contents:dashboard' %}" class="w3-bar-item w3-button w3-padding-large w3-center"  style="justify-content: center; ">DASHBOARD</a>
+             {% endif %}
 
-      <ul class="nospace">
-        <li><i class="fas fa-phone rgtspace-5"></i> +00 (123) 456 7890</li>
-        <li><i class="far fa-envelope rgtspace-5"></i> info@domain.com</li>
-      </ul>
+             {% if user.is_active %}
+             <a href="{% url 'contents:upload' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-center" style="justify-content: center;" >UPLOAD</a>
+            {% endif %}
+             {% if user.is_active %}
+             <a href="#" class="w3-bar-item w3-button  w3-hide-small w3-right w3-black"><i class="material-icons">person</i></a>
+            {% else %}
+             <a href="{% url 'user:signup' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right" style="justify-content: center;">SIGNUP</a>
+            {% endif %}
+            {% if user.is_active %}
+             <a href="{% url 'user:logout' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right" style="justify-content: center;" >LOGOUT</a>
+            {% else %}
+            <a href="{% url 'user:login' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right" style="justify-content: center;" >LOGIN</a>
+            {% endif %}
+         </div>
+     </div>
 
-    </div>
-    <div class="fl_right">
 
-      <ul class="nospace">
-        <li><a href="#" title="Login"><i class="fas fa-sign-in-alt"></i></a></li>
-        <li><a href="#" title="Sign Up"><i class="fas fa-edit"></i></a></li>
-        <li id="searchform">
-          <div>
-            <form action="#" method="post">
-              <fieldset>
-                <legend>Quick Search:</legend>
-                <input type="text" placeholder="Enter search term&hellip;">
-                <button type="submit"><i class="fas fa-search"></i></button>
-              </fieldset>
+     <!-- HERO -->
+     <section class="hero d-flex flex-column justify-content-center align-items-center" id="home" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_960_720.jpg')">
+
+            <div class="bg-overlay"></div>
+
+               <div class="container" >
+                    <div class="row">
+
+                         <div class="col-lg-8 col-md-10 mx-auto col-12" >
+                              <div class="hero-text mt-5 text-center">
+
+                                    <h6 data-aos="fade-up" data-aos-delay="300">new way to build a healthy lifestyle!</h6>
+
+                                    <h1 class="text-white" data-aos="fade-up" data-aos-delay="500">DCU</h1>
+                                    <h1 class="text-white" data-aos="fade-up" data-aos-delay="500">SnSlab</h1>
+
+                                    <a href="#feature" class="btn custom-btn mt-3" data-aos="fade-up" data-aos-delay="600">Hot contents</a>
+
+                                    <a href="http://snslab.cu.ac.kr/" class="btn btn-primary btn-lg my_blue_btn mt-3" data-aos="fade-up" data-aos-delay="700">learn more</a>
+
+                              </div>
+                         </div>
+
+                    </div>
+               </div>
+     </section>
+
+
+     <section class="feature w3-light-grey" id="feature"  >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12 text-center mb-5">
+                                <h6 data-aos="fade-up">새롭게 선보이는 작품</h6>
+
+                                <h2 data-aos="fade-up" data-aos-delay="200">What are you looking for?</h2>
+                             </div>
+                  <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400" >
+                                <div class="class-thumb">
+                                    <div class="class-info" style="background-image: url('https://cdn.pixabay.com/photo/2018/05/11/03/46/leaves-3389454_960_720.jpg');">
+                                        <h3 class="mb-1 " style="color: #FFFFFF">Yoga</h3>
+
+                                        <span><strong>Trained by</strong> - Bella</span>
+                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+                  <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
+                                <div class="class-thumb">
+                                    <div class="class-info" style="background-image: url('https://cdn.pixabay.com/photo/2016/07/05/19/02/background-1499216_960_720.jpg')">
+{#                                        <div class="bg-overlay"></div>#}
+                                        <h3 class="mb-1">Yoga</h3>
+
+                                        <span><strong>Trained by</strong> - Bella</span>
+
+                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+                <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
+                                <div class="class-thumb">
+                                    <div class="class-info" style="background-image: url('https://cdn.pixabay.com/photo/2015/07/21/15/02/pattern-854006_960_720.jpg')">
+{#                                        <div class="bg-overlay"></div>#}
+                                        <h3 class="mb-1">Yoga</h3>
+
+                                        <span><strong>Trained by</strong> - Bella</span>
+
+                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+
+            </div>
+        </div>
+    </section>
+
+
+     <!-- ABOUT -->
+     <section class="about section" id="about">
+               <div class="container">
+                    <div class="row">
+                             <div class="col-lg-12 col-12 text-center mb-5">
+                                <h6 data-aos="fade-up">Today's topic: 현대 미술</h6>
+
+                                <h2 data-aos="fade-up" data-aos-delay="200">바람에 살랑이는 꽃</h2>
+                             </div>
+
+                        <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
+                                <div class="class-thumb">
+                                    <img src="https://cdn.pixabay.com/photo/2020/05/30/17/57/flower-5239814__340.jpg" class="img-fluid" alt="Class">
+
+                                    <div class="class-info">
+                                        <h3 class="mb-1">Yoga</h3>
+
+                                        <span><strong>Trained by</strong> - Bella</span>
+
+{#                                        <span class="class-price">$50</span>#}
+
+                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+                         <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
+                                <div class="class-thumb">
+                                    <img src="https://cdn.pixabay.com/photo/2020/03/29/20/11/flowers-4982129__340.jpg" class="img-fluid" alt="Class">
+
+                                    <div class="class-info">
+                                        <h3 class="mb-1">Yoga</h3>
+
+                                        <span><strong>Trained by</strong> - Bella</span>
+
+{#                                        <span class="class-price">$50</span>#}
+
+                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+                         <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
+                                <div class="class-thumb">
+                                    <img src="https://cdn.pixabay.com/photo/2021/09/29/08/47/seamless-pattern-6666875__340.jpg" class="img-fluid" alt="Class">
+
+                                    <div class="class-info">
+                                        <h3 class="mb-1">Yoga</h3>
+
+                                        <span><strong>Trained by</strong> - Bella</span>
+
+{#                                        <span class="class-price">$50</span>#}
+
+                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+{#                            <div class="mt-lg-5 mb-lg-0 mb-4 col-lg-5 col-md-10 mx-auto col-12">#}
+{#                                <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">Hello, we are Gymso</h2>#}
+{##}
+{#                                <p data-aos="fade-up" data-aos-delay="400">You are NOT allowed to redistribute this HTML template downloadable ZIP file on any template collection site. You are allowed to use this template for your personal or business websites.</p>#}
+{##}
+{#                                <p data-aos="fade-up" data-aos-delay="500">If you have any question regarding <a rel="nofollow" href="https://www.tooplate.com/view/2119-gymso-fitness" target="_parent">Gymso Fitness HTML template</a>, you can <a rel="nofollow" href="https://www.tooplate.com/contact" target="_parent">contact Tooplate</a> immediately. Thank you.</p>#}
+{##}
+{#                            </div>#}
+{##}
+{#                            <div class="ml-lg-auto col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">#}
+{#                                <div class="team-thumb">#}
+{#                                    <img src="images/team/team-image.jpg" class="img-fluid" alt="Trainer">#}
+{##}
+{#                                    <div class="team-info d-flex flex-column">#}
+{##}
+{#                                        <h3>Mary Yan</h3>#}
+{#                                        <span>Yoga Instructor</span>#}
+{##}
+{#                                        <ul class="social-icon mt-3">#}
+{#                                            <li><a href="#" class="fa fa-twitter"></a></li>#}
+{#                                            <li><a href="#" class="fa fa-instagram"></a></li>#}
+{#                                        </ul>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{##}
+{#                            <div class="mr-lg-auto mt-5 mt-lg-0 mt-md-0 col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="800">#}
+{#                                <div class="team-thumb">#}
+{#                                    <img src="images/team/team-image01.jpg" class="img-fluid" alt="Trainer">#}
+{##}
+{#                                    <div class="team-info d-flex flex-column">#}
+{##}
+{#                                        <h3>Catherina</h3>#}
+{#                                        <span>Body trainer</span>#}
+{##}
+{#                                        <ul class="social-icon mt-3">#}
+{#                                            <li><a href="#" class="fa fa-instagram"></a></li>#}
+{#                                            <li><a href="#" class="fa fa-facebook"></a></li>#}
+{#                                        </ul>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+
+                    </div>
+               </div>
+     </section>
+
+
+     <!-- CLASS -->
+     <section class="class section" id="class">
+               <div class="container">
+                    <div class="row">
+
+                            <div class="col-lg-12 col-12 text-center mb-5">
+                                <h6 data-aos="fade-up">A history of magic</h6>
+
+                                <h2 data-aos="fade-up" data-aos-delay="200">Can you guess what this is?</h2>
+                             </div>
+
+
+                        <div class="container_media" style="position: relative; margin-left: auto; margin-right: auto" >
+                             {% for content in contents_list %}
+                            <a href="{% url 'display:picture' content.id%}">
+                                <span class="media_content_box" style="position: relative">
+                                    <img class="media_preview" style="height: 100%; width: 100%; object-fit: cover;" src="/media/{{content.upload_file}}">
+                                    <div class="imText2" style="left: 40px; bottom: -40px;">#{{content.theme_id}}</div>
+                                    <div class="imText2" style="left: 40px; bottom: -70px;">{{content.title}}</div>
+                                    <div class="imText" style="left: 40px; bottom: -90px;">Artist</div>
+                                    <span class="shadow_box">
+                                        <div class="shadow"></div>
+                                    </span>
+                                </span>
+                            </a>
+                            {%endfor%}
+                        </div>
+
+{#                            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">#}
+{#                                <div class="class-thumb">#}
+{#                                    <img src="images/class/yoga-class.jpg" class="img-fluid" alt="Class">#}
+{##}
+{#                                    <div class="class-info">#}
+{#                                        <h3 class="mb-1">Yoga</h3>#}
+{##}
+{#                                        <span><strong>Trained by</strong> - Bella</span>#}
+{##}
+{#                                        <span class="class-price">$50</span>#}
+{##}
+{#                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{##}
+{#                            <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">#}
+{#                                <div class="class-thumb">#}
+{#                                    <img src="images/class/crossfit-class.jpg" class="img-fluid" alt="Class">#}
+{##}
+{#                                    <div class="class-info">#}
+{#                                        <h3 class="mb-1">Areobic</h3>#}
+{##}
+{#                                        <span><strong>Trained by</strong> - Mary</span>#}
+{##}
+{#                                        <span class="class-price">$66</span>#}
+{##}
+{#                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{##}
+{#                            <div class="mt-5 mt-lg-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="600">#}
+{#                                <div class="class-thumb">#}
+{#                                    <img src="images/class/cardio-class.jpg" class="img-fluid" alt="Class">#}
+{##}
+{#                                    <div class="class-info">#}
+{#                                        <h3 class="mb-1">Cardio</h3>#}
+{##}
+{#                                        <span><strong>Trained by</strong> - Cathe</span>#}
+{##}
+{#                                        <span class="class-price">$75</span>#}
+{##}
+{#                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+
+                    </div>
+               </div>
+     </section>
+
+
+     <!-- SCHEDULE -->
+     <section class="schedule section" id="schedule">
+               <div class="container">
+                    <div class="row">
+
+                            <div class="col-lg-12 col-12 text-center">
+                                <h6 data-aos="fade-up">our weekly schedules</h6>
+
+                                <h2 class="text-white" data-aos="fade-up" data-aos-delay="200">전시 일정</h2>
+                             </div>
+
+                             <div class="col-lg-12 py-5 col-md-12 col-12">
+                                 <table class="table table-bordered table-responsive schedule-table" data-aos="fade-up" data-aos-delay="300">
+
+                                     <thead class="thead-light">
+                                         <th><i class="fa fa-calendar"></i></th>
+                                         <th>Mon</th>
+                                         <th>Tue</th>
+                                         <th>Wed</th>
+                                         <th>Thu</th>
+                                         <th>Fri</th>
+                                         <th>Sat</th>
+                                     </thead>
+
+                                     <tbody>
+                                         <tr>
+                                            <td><small>7:00 am</small></td>
+                                            <td>
+                                                <strong>Cardio</strong>
+                                                <span>7:00 am - 9:00 am</span>
+                                            </td>
+                                            <td>
+                                                <strong>Power Fitness</strong>
+                                                <span>7:00 am - 9:00 am</span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Yoga Section</strong>
+                                                <span>7:00 am - 9:00 am</span>
+                                            </td>
+                                         </tr>
+
+                                         <tr>
+                                            <td><small>9:00 am</small></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Boxing</strong>
+                                                <span>8:00 am - 9:00 am</span>
+                                            </td>
+                                            <td>
+                                                <strong>Areobic</strong>
+                                                <span>8:00 am - 9:00 am</span>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Cardio</strong>
+                                                <span>8:00 am - 9:00 am</span>
+                                            </td>
+                                         </tr>
+
+                                         <tr>
+                                            <td><small>11:00 am</small></td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Boxing</strong>
+                                                <span>11:00 am - 2:00 pm</span>
+                                            </td>
+                                            <td>
+                                                <strong>Areobic</strong>
+                                                <span>11:30 am - 3:30 pm</span>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Body work</strong>
+                                                <span>11:50 am - 5:20 pm</span>
+                                            </td>
+                                         </tr>
+
+                                         <tr>
+                                            <td><small>2:00 pm</small></td>
+                                            <td>
+                                                <strong>Boxing</strong>
+                                                <span>2:00 pm - 4:00 pm</span>
+                                            </td>
+                                            <td>
+                                                <strong>Power lifting</strong>
+                                                <span>3:00 pm - 6:00 pm</span>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Cardio</strong>
+                                                <span>6:00 pm - 9:00 pm</span>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Crossfit</strong>
+                                                <span>5:00 pm - 7:00 pm</span>
+                                            </td>
+                                         </tr>
+                                     </tbody>
+                                 </table>
+                             </div>
+
+                    </div>
+               </div>
+     </section>
+
+
+     <!-- CONTACT -->
+     <section class="contact section" id="contact">
+          <div class="container">
+               <div class="row">
+{##}
+{#                    <div class="ml-auto col-lg-5 col-md-6 col-12">#}
+{#                        <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Feel free to ask anything</h2>#}
+{##}
+{#                        <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">#}
+{#                            <input type="text" class="form-control" name="cf-name" placeholder="Name">#}
+{##}
+{#                            <input type="email" class="form-control" name="cf-email" placeholder="Email">#}
+{##}
+{#                            <textarea class="form-control" rows="5" name="cf-message" placeholder="Message"></textarea>#}
+{##}
+{#                            <button type="submit" class="form-control" id="submit-button" name="submit">Send Message</button>#}
+{#                        </form>#}
+{#                    </div>#}
+{##}
+                    <div class="mx-auto mt-4 mt-lg-0 mt-md-0 col-lg-5 col-md-6 col-12">
+                        <h2 class="mb-4" data-aos="fade-up" data-aos-delay="600">Where you can <span>find us</span></h2>
+
+                        <p data-aos="fade-up" data-aos-delay="800"><i class="fa fa-map-marker mr-1"></i> 120-240 Rio de Janeiro - State of Rio de Janeiro, Brazil</p>
+<!-- How to change your own map point
+	1. Go to Google Maps
+	2. Click on your location point
+	3. Click "Share" and choose "Embed map" tab
+	4. Copy only URL and paste it within the src="" field below
+-->
+                        <div class="google-map" data-aos="fade-up" data-aos-delay="900">
+                           <iframe src="https://maps.google.com/maps?q=Av.+Lúcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed" width="1920" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+
+               </div>
+          </div>
+     </section>
+
+
+     <!-- FOOTER -->
+     <footer class="site-footer">
+          <div class="container">
+               <div class="row">
+
+                    <div class="ml-auto col-lg-4 col-md-5">
+                        <p class="copyright-text">Copyright &copy; 2020 Gymso Fitness Co.
+
+                        <br>Design: <a href="https://www.tooplate.com">Tooplate</a></p>
+                    </div>
+
+                    <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
+                        <p class="mr-4">
+                            <i class="fa fa-envelope-o mr-1"></i>
+                            <a href="#">hello@company.co</a>
+                        </p>
+
+                        <p><i class="fa fa-phone mr-1"></i> 010-020-0840</p>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="membershipForm" tabindex="-1" role="dialog" aria-labelledby="membershipFormLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h2 class="modal-title" id="membershipFormLabel">Membership Form</h2>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form class="membership-form webform" role="form">
+                <input type="text" class="form-control" name="cf-name" placeholder="John Doe">
+
+                <input type="email" class="form-control" name="cf-email" placeholder="Johndoe@gmail.com">
+
+                <input type="tel" class="form-control" name="cf-phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+
+                <textarea class="form-control" rows="3" name="cf-message" placeholder="Additional Message"></textarea>
+
+                <button type="submit" class="form-control" id="submit-button" name="submit">Submit Button</button>
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="signup-agree">
+                    <label class="custom-control-label text-small text-muted" for="signup-agree">I agree to the <a href="#">Terms &amp;Conditions</a>
+                    </label>
+                </div>
             </form>
           </div>
-        </li>
-      </ul>
 
-    </div>
-  </div>
-</div>
+          <div class="modal-footer"></div>
 
-<!-- Top Background Image Wrapper -->
-<div class="bgded" style="background-image:url('images/demo/backgrounds/01.png');">
-
-  <div class="wrapper row1">
-    <header id="header" class="hoc clear">
-      <div id="logo" class="fl_left">
-        <!-- ################################################################################################ -->
-        <h1><a href="http://snslab.cu.ac.kr/">SNSLAB</a></h1>
-        <!-- ################################################################################################ -->
+        </div>
       </div>
-      <nav id="mainav" class="fl_right">
-        <!-- ################################################################################################ -->
-        <ul class="clear">
-          <li class="active"><a href="index.html">Home</a></li>
-          <li><a class="drop" href="#">Artist</a>
-            <ul>
-              <li><a href="pages/gallery.html">Gallery</a></li>
-              <li><a href="pages/full-width.html">Full Width</a></li>
-              <li><a href="pages/sidebar-left.html">Sidebar Left</a></li>
-              <li><a href="pages/sidebar-right.html">Sidebar Right</a></li>
-              <li><a href="pages/basic-grid.html">Basic Grid</a></li>
-              <li><a href="pages/font-icons.html">Font Icons</a></li>
-            </ul>
-          </li>
-          <li><a class="drop" href="#">Gallery</a>
-            <ul>
-              <li><a href="#">Level 2</a></li>
-              <li><a class="drop" href="#">Level 2 + Drop</a>
-                <ul>
-                  <li><a href="#">Level 3</a></li>
-                  <li><a href="#">Level 3</a></li>
-                  <li><a href="#">Level 3</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Level 2</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Shelter</a></li>
-        </ul>
-        <!-- ################################################################################################ -->
-      </nav>
-    </header>
-  </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <div class="overlay">
-    <div id="pageintro" class="hoc clear">
-      <!-- ################################################################################################ -->
-      <article>
-        <h3 class="heading">Digital Museum Of Snslab </h3>
-        <p>I may not be ther yet but I'm closer than I was yester. </p>
-        <footer><a class="btn" href="#">More than</a></footer>
-      </article>
-      <!-- ################################################################################################ -->
     </div>
-  </div>
-  <!-- ################################################################################################ -->
-</div>
-<!-- End Top Background Image Wrapper -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row3">
-  <main class="hoc container clear">
-    <!-- main body -->
-    <!-- ################################################################################################ -->
-    <section id="introblocks">
-      <ul class="nospace group btmspace-80">
-        <li class="one_third first">
-          <figure><a class="imgover" href="#"><img src="images/demo/348x400.png" alt=""></a>
-            <figcaption>
-              <h6 class="heading">Picture</h6>
-              <div>
-                <p> 겨울을 지나는 여러분, 따뜻한 계절을 보내고 계시는지 심심한 안부를 전합니다.
-                    우리는 바람이 세차게 부는 한겨울을 지나고 있습니다. 그럼에도 내일, 다시 내일의 해는 다시 떠오릅니다.
-                    눈길을 따라, 굳건한 소나무가 자리한 땅을 지나, 남쪽으로 바다로 걸음을 옮기다 보면 어느새 개화의 순간을 맞이할 것입니다. </p>
-              </div>
-            </figcaption>
-          </figure>
-        </li>
-        <li class="one_third">
-          <figure><a class="imgover" href="#"><img src="images/demo/348x400.png" alt=""></a>
-            <figcaption>
-              <h6 class="heading">picture</h6>
-              <div>
-                <p>영국 최고의 화가 윌리엄 터너가 그의 나이 70세에 폭풍우 치는 바다를 그리기 위해 배에 몸을 묶어 세찬 파도를 항해했던 것처럼
-                    김인화 화백 또한 산의 웅장함과 폐 곳곳을 채우는 맑은 공기, 혹은 작은 생명들의 대화를 화폭에 담기 위해 직접 세상에 뛰어드는 모험을 주저하지 않습니다.</p>
-              </div>
-            </figcaption>
-          </figure>
-        </li>
-        <li class="one_third">
-          <figure><a class="imgover" href="#"><img src="images/demo/348x400.png" alt=""></a>
-            <figcaption>
-              <h6 class="heading">picture</h6>
-              <div>
-                <p>바쁘게, 더 빠르게. 조급한 마음에 앞을 다퉈 달리기 급급한 요즘입니다.
-                    무엇인가를 꾸준하게 이어간다는 것이 참 어려운 시점에서, 전시 《COUNTDOWN 2021》은 중견의 위치를 다듬어가는 여덟 작가들의 작품을 한 데 모아 현재를 조망하고자 합니다.</p>
-              </div>
-            </figcaption>
-          </figure>
-        </li>
-      </ul>
-    </section>
-    <!-- ################################################################################################ -->
-    <hr class="btmspace-80">
-    <!-- ################################################################################################ -->
-    <section class="group">
-      <div class="one_half first"><img class="inspace-15 borderedbox" src="images/demo/474x356.png" alt=""></div>
-      <div class="one_half">
-        <ul class="nospace group inspace-15">
-          <li class="one_half first btmspace-50">
-            <article>
-              <h6 class="heading"><a href="#">Posuere ultricies</a></h6>
-              <p class="nospace">Sed tellus fusce velit orci aliquet et condimentum sit amet dapibus eget odio vivamus urna pellentesque felis&hellip;</p>
-            </article>
-          </li>
-          <li class="one_half btmspace-50">
-            <article>
-              <h6 class="heading"><a href="#">Pellentesque ipsum</a></h6>
-              <p class="nospace">Ut quam imperdiet tincidunt vestibulum eget magna eget sem imperdiet tincidunt praesent sit amet adipiscing&hellip;</p>
-            </article>
-          </li>
-          <li class="one_half first">
-            <article>
-              <h6 class="heading"><a href="#">Risus auctor vel</a></h6>
-              <p class="nospace">Accumsan curabitur cursus porta lectus nam posuere orci in elementum molestie purus erat volutpat ullamcorper&hellip;</p>
-            </article>
-          </li>
-          <li class="one_half">
-            <article>
-              <h6 class="heading"><a href="#">Volutpat vitae</a></h6>
-              <p class="nospace">Elit purus non odio etiam dictum euismod lectus vestibulum tincidunt erat vel molestie gravida ligula lacus&hellip;</p>
-            </article>
-          </li>
-        </ul>
-      </div>
-    </section>
-    <!-- ################################################################################################ -->
-    <!-- / main body -->
-    <div class="clear"></div>
-  </main>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="bgded overlay" style="background-image:url('images/demo/backgrounds/01.png');">
-  <figure class="hoc container clear imgroup">
-    <!-- ################################################################################################ -->
-    <figcaption class="sectiontitle">
-      <p class="nospace font-xs">Pulvinar sem eu tincidunt magna</p>
-      <p class="heading underline font-x2">Nulla eu turpis curabitur</p>
-    </figcaption>
-    <ul class="nospace group">
-      <li class="one_third"><a class="imgover" href="#"><img src="images/demo/348x261.png" alt=""></a></li>
-      <li class="one_third"><a class="imgover" href="#"><img src="images/demo/348x261.png" alt=""></a></li>
-      <li class="one_third"><a class="imgover" href="#"><img src="images/demo/348x261.png" alt=""></a></li>
-      <li class="one_third"><a class="imgover" href="#"><img src="images/demo/348x261.png" alt=""></a></li>
-      <li class="one_third"><a class="imgover" href="#"><img src="images/demo/348x261.png" alt=""></a></li>
-      <li class="one_third"><a class="imgover" href="#"><img src="images/demo/348x261.png" alt=""></a></li>
-    </ul>
-    <!-- ################################################################################################ -->
-  </figure>
-  <!-- ################################################################################################ -->
-  </section>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row2">
-  <div class="hoc container clear">
-    <!-- ################################################################################################ -->
-    <div class="sectiontitle">
-      <p class="nospace font-xs">Vel lorem quis arcu euismod faucibus</p>
-      <p class="heading underline font-x2">Quisque luctus nullam eget</p>
-    </div>
-    <ul class="nospace group team">
-      <li class="one_quarter first">
-        <figure><a class="imgover" href="#"><img src="images/demo/300x300.png" alt=""></a>
-          <figcaption><strong>A. Doe</strong> <em>Job Title Here</em></figcaption>
-        </figure>
-      </li>
-      <li class="one_quarter">
-        <figure><a class="imgover" href="#"><img src="images/demo/300x300.png" alt=""></a>
-          <figcaption><strong>B. Doe</strong> <em>Job Title Here</em></figcaption>
-        </figure>
-      </li>
-      <li class="one_quarter">
-        <figure><a class="imgover" href="#"><img src="images/demo/300x300.png" alt=""></a>
-          <figcaption><strong>C. Doe</strong> <em>Job Title Here</em></figcaption>
-        </figure>
-      </li>
-      <li class="one_quarter">
-        <figure><a class="imgover" href="#"><img src="images/demo/300x300.png" alt=""></a>
-          <figcaption><strong>D. Doe</strong> <em>Job Title Here</em></figcaption>
-        </figure>
-      </li>
-    </ul>
-    <!-- ################################################################################################ -->
-  </div>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row3">
-  <figure class="hoc container clear clients">
-    <!-- ################################################################################################ -->
-    <figcaption class="sectiontitle">
-      <p class="nospace font-xs">Nisl donec eu neque nisi molestie</p>
-      <p class="heading underline font-x2">Pellentesque donec ut dolor</p>
-    </figcaption>
-    <ul class="nospace group">
-      <li class="one_quarter first"><a class="imgover" href="#"><img src="images/demo/249x100.png" alt=""></a></li>
-      <li class="one_quarter"><a class="imgover" href="#"><img src="images/demo/249x100.png" alt=""></a></li>
-      <li class="one_quarter"><a class="imgover" href="#"><img src="images/demo/249x100.png" alt=""></a></li>
-      <li class="one_quarter"><a class="imgover" href="#"><img src="images/demo/249x100.png" alt=""></a></li>
-      <li class="one_quarter first"><a class="imgover" href="#"><img src="images/demo/249x100.png" alt=""></a></li>
-      <li class="one_quarter"><a class="imgover" href="#"><img src="images/demo/249x100.png" alt=""></a></li>
-      <li class="one_quarter"><a class="imgover" href="#"><img src="images/demo/249x100.png" alt=""></a></li>
-      <li class="one_quarter"><a class="imgover" href="#"><img src="images/demo/249x100.png" alt=""></a></li>
-    </ul>
-    <!-- ################################################################################################ -->
-  </figure>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper bgded overlay" style="background-image:url('images/demo/backgrounds/01.png');">
-  <section id="testimonials" class="hoc container clear">
-    <!-- ################################################################################################ -->
-    <div class="sectiontitle">
-      <p class="nospace font-xs">Imperdiet at rhoncus vitae ante sed</p>
-      <p class="heading underline font-x2">Eu felis etiam et risus at</p>
-    </div>
-    <article class="btmspace-80">
-      <blockquote>Pellentesque ipsum pede malesuada non vulputate at euismod et lorem nullam tincidunt urna eget nisl eleifend vulputate sed vitae risus sed enim fermentum venenatis sed augue eros tempor sit amet.</blockquote>
-      <figure class="clear"><img src="images/demo/60x60.png" alt="">
-        <figcaption>
-          <h6 class="heading">John Doe</h6>
-          <em>CEO</em></figcaption>
-      </figure>
-    </article>
-    <footer class="center"><a class="btn" href="#">More Testimonials</a></footer>
-    <!-- ################################################################################################ -->
-  </section>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row3">
-  <section class="hoc container clear">
-    <!-- ################################################################################################ -->
-    <div class="sectiontitle">
-      <p class="nospace font-xs">Felis dictum viverra mauris dui</p>
-      <p class="heading underline font-x2">Phasellus nunc erat cursus</p>
-    </div>
-    <ul id="latest" class="nospace group">
-      <li class="one_third first">
-        <article><a class="imgover" href="#"><img src="images/demo/348x261.png" alt=""></a>
-          <ul class="nospace meta clear">
-            <li><i class="fas fa-user"></i> <a href="#">Admin</a></li>
-            <li><i class="fas fa-comments"></i> <a href="#">Comments (10)</a></li>
-          </ul>
-          <div class="excerpt clear">
-            <h6 class="heading">Aliquet tincidunt vel vulputate egestas leo</h6>
-            <time datetime="2045-04-05T08:15+00:00"><strong>05</strong> <em>Apr</em></time>
-            <p>Integer id justo ut diam suscipit laoreet quisque bibendum dolor at ultricies vestibulum risus&hellip;</p>
-          </div>
-          <footer><a class="btn" href="#">Read More</a></footer>
-        </article>
-      </li>
-      <li class="one_third">
-        <article><a class="imgover" href="#"><img src="images/demo/348x261.png" alt=""></a>
-          <ul class="nospace meta clear">
-            <li><i class="fas fa-user"></i> <a href="#">Admin</a></li>
-            <li><i class="fas fa-comments"></i> <a href="#">Comments (10)</a></li>
-          </ul>
-          <div class="excerpt clear">
-            <h6 class="heading">Dui eleifend elit ac ullamcorper libero tellus</h6>
-            <time datetime="2045-04-04T08:15+00:00"><strong>04</strong> <em>Apr</em></time>
-            <p>Vel turpis quisque blandit metus ut tellus in mauris vivamus faucibus vivamus egestas lobortis&hellip;</p>
-          </div>
-          <footer><a class="btn" href="#">Read More</a></footer>
-        </article>
-      </li>
-      <li class="one_third">
-        <article><a class="imgover" href="#"><img src="images/demo/348x261.png" alt=""></a>
-          <ul class="nospace meta clear">
-            <li><i class="fas fa-user"></i> <a href="#">Admin</a></li>
-            <li><i class="fas fa-comments"></i> <a href="#">Comments (10)</a></li>
-          </ul>
-          <div class="excerpt clear">
-            <h6 class="heading">Odio curabitur id neque sed urna facilisis blandit</h6>
-            <time datetime="2045-04-03T08:15+00:00"><strong>03</strong> <em>Apr</em></time>
-            <p>Donec quis metus vel tortor porttitor pretium cras at justo nullam at lacus id metus pulvinar&hellip;</p>
-          </div>
-          <footer><a class="btn" href="#">Read More</a></footer>
-        </article>
-      </li>
-    </ul>
-    <!-- ################################################################################################ -->
-  </section>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper coloured">
-  <section id="ctdetails" class="hoc clear">
-    <!-- ################################################################################################ -->
-    <ul class="nospace clear">
-      <li class="one_quarter first">
-        <div class="block clear"><a href="#"><i class="fas fa-phone"></i></a> <span><strong>Give us a call:</strong> +00 (123) 456 7890</span></div>
-      </li>
-      <li class="one_quarter">
-        <div class="block clear"><a href="#"><i class="fas fa-envelope"></i></a> <span><strong>Send us a mail:</strong> support@domain.com</span></div>
-      </li>
-      <li class="one_quarter">
-        <div class="block clear"><a href="#"><i class="fas fa-clock"></i></a> <span><strong> Monday - Saturday:</strong> 08.00am - 18.00pm</span></div>
-      </li>
-      <li class="one_quarter">
-        <div class="block clear"><a href="#"><i class="fas fa-map-marker-alt"></i></a> <span><strong>Come visit us:</strong> Directions to <a href="#">our location</a></span></div>
-      </li>
-    </ul>
-    <!-- ################################################################################################ -->
-  </section>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="bgded overlay row4" style="background-image:url('images/demo/backgrounds/01.png');">
-  <footer id="footer" class="hoc clear">
-    <!-- ################################################################################################ -->
-    <div class="one_quarter first">
-      <h6 class="heading">Pellentesque dictum</h6>
-      <ul class="nospace linklist">
-        <li><a href="#">Ultricies in molestie sed</a></li>
-        <li><a href="#">Consectetuer nam sodales</a></li>
-        <li><a href="#">Euismod tellus sed non</a></li>
-        <li><a href="#">Est etiam in eros curabitur</a></li>
-        <li><a href="#">Viverra dui nec arcu sed</a></li>
-      </ul>
-    </div>
-    <div class="one_quarter">
-      <h6 class="heading">Fermentum pellentesque</h6>
-      <p class="nospace btmspace-15">Pede ullamcorper facilisis bibendum nulla elit gravida elit vel suscipit urna.</p>
-      <form action="#" method="post">
-        <fieldset>
-          <legend>Newsletter:</legend>
-          <input class="btmspace-15" type="text" value="" placeholder="Name">
-          <input class="btmspace-15" type="text" value="" placeholder="Email">
-          <button type="submit" value="submit">Submit</button>
-        </fieldset>
-      </form>
-    </div>
-    <div class="one_quarter">
-      <h6 class="heading">Nisi nunc velit aliquam</h6>
-      <ul class="nospace linklist">
-        <li>
-          <article>
-            <p class="nospace btmspace-10"><a href="#">Sapien sit amet tortor nulla vulputate odio in varius tristique nisi urna.</a></p>
-            <time class="block font-xs" datetime="2045-04-06">Friday, 6<sup>th</sup> April 2045</time>
-          </article>
-        </li>
-        <li>
-          <article>
-            <p class="nospace btmspace-10"><a href="#">Consequat erat id rutrum nisi magna vel tellus phasellus malesuada bibendum.</a></p>
-            <time class="block font-xs" datetime="2045-04-05">Thursday, 5<sup>th</sup> April 2045</time>
-          </article>
-        </li>
-      </ul>
-    </div>
-    <div class="one_quarter">
-      <h6 class="heading">Lacinia iaculis nunc</h6>
-      <ul class="nospace clear latestimg">
-        <li><a class="imgover" href="#"><img src="images/demo/100x100.png" alt=""></a></li>
-        <li><a class="imgover" href="#"><img src="images/demo/100x100.png" alt=""></a></li>
-        <li><a class="imgover" href="#"><img src="images/demo/100x100.png" alt=""></a></li>
-        <li><a class="imgover" href="#"><img src="images/demo/100x100.png" alt=""></a></li>
-        <li><a class="imgover" href="#"><img src="images/demo/100x100.png" alt=""></a></li>
-        <li><a class="imgover" href="#"><img src="images/demo/100x100.png" alt=""></a></li>
-        <li><a class="imgover" href="#"><img src="images/demo/100x100.png" alt=""></a></li>
-        <li><a class="imgover" href="#"><img src="images/demo/100x100.png" alt=""></a></li>
-        <li><a class="imgover" href="#"><img src="images/demo/100x100.png" alt=""></a></li>
-      </ul>
-    </div>
-    <!-- ################################################################################################ -->
-  </footer>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row5">
-  <div id="copyright" class="hoc clear">
-    <!-- ################################################################################################ -->
-    <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Domain Name</a></p>
-    <p class="fl_right">Template by <a target="_blank" href="https://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
-    <!-- ################################################################################################ -->
-  </div>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
-<!-- JAVASCRIPTS -->
-<script src="jquery.min.js"></script>
-<script src="jquery.backtotop.js"></script>
-<script src="jquery.mobilemenu.js"></script>
+
+     <!-- SCRIPTS -->
+     <script src="js/jquery.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/aos.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/custom.js"></script>
+
 </body>
 </html>
