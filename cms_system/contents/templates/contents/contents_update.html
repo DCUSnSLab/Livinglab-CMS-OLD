@@ -30,8 +30,7 @@
 <div class="container">
 	 <div class="w3-top" style="margin-left: -80px; right: 0px">
              <div class="w3-bar w3-black w3-card">
-                 <a href="/display/signage" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="justify-content: center;" >GALLERY</a>
-                 <a href="#" class="w3-bar-item w3-button w3-padding-large" style="justify-content: center;">DASHBOARD</a>
+                 <a href="{% url 'contents:dashboard' %}" class="w3-bar-item w3-button w3-padding-large" style="justify-content: center;">DASHBOARD</a>
                  <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="justify-content: center;" >COMMUNITY</a>
              </div>
 	</div>
