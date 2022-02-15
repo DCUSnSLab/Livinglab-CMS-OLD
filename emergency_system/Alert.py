@@ -10,11 +10,14 @@ def Alert(que):
     # freq = 900         # Hz
     chunk = 1024
     wav_path = 'siren.wav'
-    while(True):
 
+    while True:
+        p = pyaudio.PyAudio()
         # 호출 신호 확인
         val = que.get()
         if val is not None:
+            # 매번 pyaudio 객체를 생성하여 너무 느림
+
             # # TODO 추후 경고음성으로 대체(ex) pyaudio를 이용하여 삐용삐용음성 재생)
             # if osValue == "Windows":
             #     winsound.Beep(freq, durationWin)
@@ -28,7 +31,7 @@ def Alert(que):
             #     os.system('spd-say "Attention, This is an emergency."')
 
             with wave.open(wav_path, 'rb') as f:
-                p = pyaudio.PyAudio()
+
                 stream = p.open(format=p.get_format_from_width(f.getsampwidth()),
                                 channels=f.getnchannels(),
                                 rate=f.getframerate(),
@@ -42,6 +45,4 @@ def Alert(que):
             stream.stop_stream()
             stream.close()
             p.terminate()
-
-        # TODO 추후 경광등 점등 기능 추가
 
