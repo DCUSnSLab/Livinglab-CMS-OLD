@@ -13,7 +13,6 @@ def signageView(request):
 
     # For Gallery Show
     contents_list = list(Contents.objects.all().values('id', 'title', 'upload_file'))
-
     # 이예지 추가 필요
     # print contents_list
     # [1번 콘텐츠 id, title, uploadfile, userfk, themea ] [2번 ] [3] [4]

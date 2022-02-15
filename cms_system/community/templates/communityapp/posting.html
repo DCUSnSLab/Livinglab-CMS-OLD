@@ -18,48 +18,50 @@
 <body>
     <div class="w3-top">
       <div class="w3-bar w3-black w3-card">
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="{% url 'display:signage' %}" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
         <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
       </div>
     </div>
     <div class="my_center">
         <a href="{% url 'community' community.id %}" class="my_right my_blue_txt">목록</a>
         <p>제목 : {{post.title}}</p>
-        <p>작성자 : {{post.auth_user_id.nickname}}</p>
+        <!--p>작성자 : {{post.userFK}}</p-->
         <p>작성시간 : {{post.createDate}} &nbsp;&nbsp;&nbsp;&nbsp; 수정시간 : {{post.lastEditDate}}</p>
         <p>
             {% autoescape off %}
             {{post.content}}
             {% endautoescape %}
         </p>
-        <a class="my_blue_txt" href="{% url 'edit_post' community.id post.id %}">게시글 수정</a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="my_blue_txt" href="{% url 'remove_post' community.id post.id %}">게시글 삭제</a>
+<!--        <a class="my_blue_txt" href="{% url 'edit_post' community.id post.id %}">게시글 수정</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--        <a class="my_blue_txt" href="{% url 'remove_post' community.id post.id %}">게시글 삭제</a>-->
         <hr>
         <form action="{%url 'reply' community.id post.id %}" method="POST">
             {% csrf_token %}
             <div>
                 <input type="text" class="form-control input one" name="comment" placeholder="댓글 입력">
                 <input type="submit" class="btn btn-primary btn-lg my_blue_btn" value="submit">
-                <div class="simple-keyboard"></div>
+                <!--div class="simple-keyboard"></div>
               <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
-              <script src="src/index.js"></script>
+              <script src="src/index.js"></script-->
             </div>
         </form>
-
+        <input type="button" class="btn btn-primary btn-lg my_blue_btn" value="대댓글 보이기" onclick="show()">
+        <input type="button" class="btn btn-primary btn-lg my_blue_btn" value="대댓글 숨기기" onclick="hide()">
         <div class = "comments-list">
             <hr>
             {% for c in comment %}
             {% if not c.parent_comment %}
             <div class = "reply">
-                <p class="first">{{c.auth_user_id.nickname}}</p><p class="right">{{c.lastEditDate}}</p>
+                <!--p class="first">{{c.auth_user_id.nickname}}</p-->
+                <p style="float: left; width: 65%;">익명</p><p class="right">{{c.lastEditDate}}</p>
                 <p style="word-wrap: break-word">
                     {% autoescape off %}
                     {{c.content}}
                     {% endautoescape %}
                 </p>
                 <p>
-                    <a class="my_blue_txt" href="{% url 'edit_reply' community.id post.id c.id %}">수정</a>
-                    <a class="my_blue_txt" href="{% url 'remove_reply' community.id post.id c.id %}">삭제</a>
+<!--                    <a class="my_blue_txt" href="{% url 'edit_reply' community.id post.id c.id %}">수정</a>-->
+<!--                    <a class="my_blue_txt" href="{% url 'remove_reply' community.id post.id c.id %}">삭제</a>-->
                 </p>
                 <form action="{%url 'rereply' community.id post.id c.id %}" method="POST">
                     {% csrf_token %}
@@ -68,23 +70,25 @@
                         <input type="submit" class="btn btn-primary btn-lg my_blue_btn" value="submit">
                     </div>
                 </form>
-                {% for r in comment %}
-                {% if r.parent_comment == c %}
-                <br>
-                 <div class="reply" style="padding-left: 50px;">
-                    <p style="float: left; width: 60%;">{{r.auth_user_id.nickname}}</p><p class="right">{{r.lastEditDate}}</p>
-                    <p style="word-wrap: break-word;">
-                        {% autoescape off %}
-                        {{r.content}}
-                        {% endautoescape %}
-                    </p>
-                    <p>
-                        <a class="my_blue_txt" href="{% url 'edit_reply' community.id post.id r.id %}">수정</a>
-                        <a class="my_blue_txt" href="{% url 'remove_reply' community.id post.id r.id %}">삭제</a>
-                    </p>
-                 </div>
-                {% endif %}
-                {% endfor %}
+                <div name="rereply">
+                    {% for r in comment %}
+                    {% if r.parent_comment == c %}
+                    <br>
+                     <div class="reply" style="padding-left: 50px;">
+                        <p style="float: left; width: 60%;">익명</p><!--p style="float: left; width: 60%;">{{r.auth_user_id.nickname}}</p--><p class="right">{{r.lastEditDate}}</p>
+                        <p style="word-wrap: break-word;">
+                            {% autoescape off %}
+                            {{r.content}}
+                            {% endautoescape %}
+                        </p>
+                        <p>
+    <!--                        <a class="my_blue_txt" href="{% url 'edit_reply' community.id post.id r.id %}">수정</a>-->
+    <!--                        <a class="my_blue_txt" href="{% url 'remove_reply' community.id post.id r.id %}">삭제</a>-->
+                        </p>
+                     </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
                 <hr>
             </div>
             {% endif %}
@@ -93,6 +97,19 @@
     </div>
 </body>
 <script>
+    function hide() {
+        var num = document.getElementsByName("rereply")
+        for(var i = 0; i < num.length; i++){
+            document.getElementsByName("rereply")[i].style.display="none";
+        }
+    }
+    function show() {
+        var num = document.getElementsByName("rereply")
+        for(var i = 0; i < num.length; i++){
+            document.getElementsByName("rereply")[i].style.display="block";
+        }
+    }
+
     const Keyboard = window.SimpleKeyboard.default;
 
     const myKeyboard = new Keyboard({
