@@ -72,4 +72,16 @@ def createDirectory(directory):
     except OSError:
         print('Error: Creating directory. ' + directory)
 
+def CutFilePath(path, string):
+
+    split_path = path.split(string)
+    cut_path = split_path[1] + "thumbnail.jpg"
+    print(cut_path)
+
+    return cut_path
+
+
+
+
+
 

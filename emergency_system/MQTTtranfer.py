@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 import O2OInfo, time, json
+from datetime import datetime
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -24,31 +25,13 @@ def on_message(client, userdata, msg):
 
 def EventTime():
 
-    time_data = time.localtime()
-    # current_time = str(time_data.tm_year) + "-" + \
-    #                str(time_data.tm_mon) + "-" + \
-    #                str(time_data.tm_mday) + " " + \
-    #                str(time_data.tm_hour) + ":" + \
-    #                str(time_data.tm_min) + "+" + \
-    #                str(time_data.tm_sec)
-
-    evtime = str(time_data.tm_year) + \
-             str(time_data.tm_mon) + \
-             str(time_data.tm_mday) + \
-             str(time_data.tm_hour) + \
-             str(time_data.tm_min) + \
-             str(time_data.tm_sec)
+    now = datetime.now()
+    evtime = now.strftime("%Y%m%d%H%M%S")
+    print("evtime",evtime)
 
     return evtime
 
 def GetPublishData():
-
-    # ※ 비상벨
-    # {
-    #     "sh_id": "S001",
-    #     "datetime": "20211012130220",
-    #     "event": "4"
-    # }
 
     sh_id = O2OInfo.shelterID
     datetime = EventTime()
@@ -67,7 +50,6 @@ def Transfer(Q2):
     client = mqtt.Client("DCU-EmergencyBell")
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
-    # client.on_subscribe = on_subscribe
     client.on_publish = on_publish
     client.on_message = on_message
 
@@ -86,4 +68,3 @@ def Transfer(Q2):
             print("pub_data", pub_data)
             pub_data_json = json.dumps(pub_data)
             client.publish('event/S001', pub_data_json)
-            # 값날라가는지 제대로 날라가는 체크 필요

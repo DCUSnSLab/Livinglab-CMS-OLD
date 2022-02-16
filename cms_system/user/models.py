@@ -25,7 +25,10 @@ class CustomUser(models.Model):
                                     validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
     user_auth = models.CharField(max_length=200, choices=SYSTEM_AUTHORITY, null=True, default=0)
 
+    # def __str__(self):
+    #     return self.user.username
+
     def __str__(self):
-        return self.user.username
+        return self.nickname
 
 
