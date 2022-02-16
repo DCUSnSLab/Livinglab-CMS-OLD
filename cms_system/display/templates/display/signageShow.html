@@ -8,7 +8,6 @@
         <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css" >
 
         <!-- js -->
-
     </head>
 
     <body>
@@ -30,13 +29,13 @@
                 <h3 class="imgText">이미지 콘텐츠</h3>
                 <div class="gray-line"></div>
             <div class="container_media" style="position: relative">
-                     {% for content in contents_list %}
+                     {% for content in img_list %}
                     <a href="{% url 'display:picture' content.id%}">
                         <span class="media_content_box" style="position: relative">
                             <img class="media_preview" style="height: 100%; width: 100%; object-fit: cover;" src="/media/{{content.upload_file}}">
-                            <div class="imText2" style="left: 40px; bottom: -40px;">#{{content.theme_id}}</div>
+                            <div class="imText2" style="left: 40px; bottom: -40px;"># {{content.theme_id}}</div>
                             <div class="imText2" style="left: 40px; bottom: -70px;">{{content.title}}</div>
-                            <div class="imText" style="left: 40px; bottom: -90px;">Artist</div>
+                            <div class="imText" style="left: 40px; bottom: -90px;">{{content.nickname}}</div>
                             <span class="shadow_box">
                                 <div class="shadow"></div>
                             </span>
@@ -51,13 +50,13 @@
                 <h3 style="margin-left: 30px;">동영상 콘텐츠</h3>
                 <div class="gray-line"></div>
                 <div class="container_media" style="position: relative">
-                     {% for content in contents_list %}
+                     {% for content in vod_list %}
                     <a href="{% url 'display:media' content.id%}">
                         <span class="media_content_box" style="position: relative">
-                            <img class="media_preview" style="height: 100%; width: 100%; object-fit: cover;" src="/media/{{content.upload_file}}">
-                            <div class="imText2" style="left: 40px; bottom: -40px;">#{{content.theme_id}}</div>
+                            <img class="media_preview" style="height: 100%; width: 100%; object-fit: cover;" src="/media/{{content.thumbnail}}">
+                            <div class="imText2" style="left: 40px; bottom: -40px;">{{content.theme_id}}</div>
                             <div class="imText2" style="left: 40px; bottom: -70px;">{{content.title}}</div>
-                            <div class="imText" style="left: 40px; bottom: -90px;">Artist</div>
+                            <div class="imText" style="left: 40px; bottom: -90px;">{{content.nickname}}</div>
                             <span class="shadow_box">
                                 <div class="shadow"></div>
                             </span>

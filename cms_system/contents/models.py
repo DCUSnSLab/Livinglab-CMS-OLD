@@ -41,6 +41,7 @@ class Contents_Description(models.Model):
     width = models.CharField(max_length=10, null=True)
     height = models.CharField(max_length=10, null=True)
     HVType = models.CharField(max_length=10, null=True)  # 가로형 세로형 horizontal, vertical
+    thumbnailPath = models.CharField(max_length=200, null=True)
     contentFK = models.ForeignKey(Contents, on_delete=models.CASCADE, db_column="contentsFK", null=True, blank=True)
 
 

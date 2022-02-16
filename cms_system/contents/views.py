@@ -40,7 +40,7 @@ def UploadView(request):
 
             description = contentsDescriptionForm.save(commit=False)
             current_content = Contents.objects.filter(Q(userFK=request.user)).latest('id')
-
+            print("오잉?", current_content)
             description.contentFK = current_content
 
 
@@ -73,7 +73,7 @@ def UploadView(request):
                 TS_PATH = "{0}/vod-{1}/clip_%04d.ts".format(BASE_PATH, filename)
                 M3U8_PATH = "{0}/vod-{1}/{2}.m3u8".format(BASE_PATH, filename, filename)
                 THUMBNAIL_PATH = "{0}/thumbnail-{1}/".format(BASE_PATH, filename)
-
+                print("THUMBNAIL_PATH", THUMBNAIL_PATH)
                 createDirectory(FILE_DIR)
                 video2m3u8(VOD_PATH, TS_PATH, M3U8_PATH, 0)
 
@@ -81,12 +81,13 @@ def UploadView(request):
                 description.width = fileInfo['width']
                 description.height = fileInfo['height']
                 description.HVType = fileInfo['HVType']
+                description.thumbnailPath = CutFilePath(THUMBNAIL_PATH, "media/")
                 description.save()
 
                 # 비디오 프레임 추출
                 DIR = createDirectory(THUMBNAIL_PATH)
-                print("sdfdsfds", DIR)
-                print(VOD_PATH)
+                print("여기다", DIR) # DIR + thumnail.jpg
+                print("비디오 위치", VOD_PATH)
                 GetThumbnail(VOD_PATH, DIR)
 
 

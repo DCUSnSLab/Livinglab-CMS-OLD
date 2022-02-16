@@ -16,7 +16,6 @@ def Alert(que):
         # 호출 신호 확인
         val = que.get()
         if val is not None:
-            # 매번 pyaudio 객체를 생성하여 너무 느림
 
             # # TODO 추후 경고음성으로 대체(ex) pyaudio를 이용하여 삐용삐용음성 재생)
             # if osValue == "Windows":
