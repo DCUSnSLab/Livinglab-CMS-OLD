@@ -23,14 +23,16 @@
 <body>
     <div class="w3-top">
       <div class="w3-bar w3-black w3-card">
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="{% url 'display:signage' %}" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
         <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
       </div>
     </div>
     <div class="my_center">
+        <a href="{% url 'community' community.id %}" class="my_right my_blue_txt">뒤로가기</a><br>
+        <br>
         <form method="POST"> <!--# 내부의 정보를 한번에 서버로 전송 GET은 정보를 가져옴, POST는 정보를 서버에 전송하여 서버 DB에 보낸 정보를 저장-->
             {% csrf_token %}
-            제목<input type="text" class="form-control" name="postname"><br>
+            제목<input type="text" class="form-control" name="postname"/><br>
             내용<textarea rows="10" cols="50" name="contents" class="my_area" id="mycontents"></textarea><br>
             <input type="submit" class="btn btn-primary btn-lg my_right my_blue_btn" value="글쓰기"> <!--# 버튼이 클릭되면 서버로 전송-->
         </form>

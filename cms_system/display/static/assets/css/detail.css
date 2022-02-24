@@ -1,4 +1,9 @@
-
+@font-face {
+    font-family: 'MinSans-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
             #headerArea{
                 height:30px;
                 background-color:#000000;
@@ -45,7 +50,7 @@
 
             #section2{
                 border-radius: 7px;
-                height:700px;
+                height:900px;
             }
 
             body{
@@ -54,9 +59,11 @@
                 overflow-y:hidden;
                 overflow-x:hidden;
                 height: 100%;
+                /*font-size: 30px;*/
             }
             #section3{
-                height: 700px;
+                margin-top: 20px;
+                height: 750px;
                 overflow-y:scroll;
                 overflow-x:hidden;
                 background-color:#E8EBED;
@@ -70,6 +77,9 @@
 
             }
 
+              body::-webkit-scrollbar{
+                display:none;
+            }
             /* BUTTON 5 */
 
             /* GENERAL BUTTON STYLING */
@@ -95,7 +105,7 @@
               padding: 0.5em 1em;
             }
             .gray-line{
-                width: 45rem;
+                width: 60rem;
                 height: 0.1rem;
                 background-color: #eeeeee;
                 margin: 0.5rem 80px 1rem 90px;
@@ -104,6 +114,7 @@
                 margin-top: 1.2rem;
                 border: 0.1rem solid #e0e0e0;
                 border-radius: 10px;
+                word-wrap:break-word;
 
             }
 

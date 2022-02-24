@@ -17,11 +17,12 @@
 <body>
     <div class="w3-top">
       <div class="w3-bar w3-black w3-card">
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="{% url 'display:signage' %}" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
         <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
       </div>
     </div>
     <div class="my_center">
+        <a href="{% url 'posting' community.id post.id %}" class="my_right my_blue_txt">뒤로가기</a><br>
         <form method="POST">
         {% csrf_token %}
         <h3>{{ post.title }} - 삭제하기</h3>

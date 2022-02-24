@@ -12,26 +12,29 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="{% static './assets/main.82cfd66e.css' %}" rel="stylesheet">
     <link href="{% static './assets/mycss.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
     <title>Title</title>
 </head>
 <body>
     <div class="w3-top">
       <div class="w3-bar w3-black w3-card">
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="{% url 'display:signage' %}" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
         <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
       </div>
     </div>
-    <div class="detail-contents my_center">
-        <p style="text-align: center">주제별 게시판</p>
-        <hr>
-        <div class="wrapper">
-            <table>
-                {% for list in communitylist %}
-                    <ul class="nav">
-                        <li><a href="{% url 'community' list.id %}">{{list.name}}</a></li>
-                    </ul>
-                {% endfor %}
-            </table>
+    <div class="my_center">
+        <div class="detail-contents">
+            <p style="text-align: center">게시판</p>
+            <hr>
+            <div class="wrapper">
+                <table>
+                    {% for list in communitylist %}
+                        <ul class="nav my_center_txt">
+                            <li><a href="{% url 'community' list.id %}">{{list.name}}</a></li>
+                        </ul>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
     </div>
 </body>

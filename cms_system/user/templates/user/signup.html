@@ -1,24 +1,140 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name = "viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <meta http-equiv="X-UA-Compatible" content = "ie=edge">#}
+{#    <title>SignUP2</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <form method="POST" enctype="multipart/form-data" action="{% url 'user:signup' %}">#}
+{#        {% csrf_token %}#}
+{#        {{form.as_p}}#}
+{#        <p>CMS 닉네임 : {{additional_form.nickname}}</p>#}
+{#        <p>내소개 : {{additional_form.user_description}}</p>#}
+{#        <!-- 관리자 권한으로 변경 예정 -->#}
+{#        <p>사용자 권한 : {{additional_form.user_auth}}</p>#}
+{#        <p>내 프로필 이미지 : {{additional_form.user_profile}}</p>#}
+{##}
+{#        <input type="submit" value="회원가입">#}
+{#    </form>#}
+{##}
+{#</body>#}
+{#</html>#}
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content = "ie=edge">
-    <title>SignUP2</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="assets/img/favicon.ico">
+<title>Mediumish - A Medium style template by WowThemes.net</title>
+<!-- Bootstrap core CSS -->
+<link href="{% static './assets/css/bootstrap.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- Fonts -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- Custom styles for this template -->
+<link href="{% static './assets/css/mediumish.css' %}" rel="stylesheet">
+<!--	<link href="/contents/static/assets/css/mediumish.css" rel="stylesheet">-->
 </head>
 <body>
 
-    <form method="POST" enctype="multipart/form-data" action="{% url 'user:signup' %}">
+<!-- Begin Nav
+================================================== -->
+<!--<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">-->
+<!--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--<span class="navbar-toggler-icon"></span>-->
+<!--</button>-->
+<div class="container">
+	 <div class="w3-top" style="margin-left: -80px; right: 0px">
+             <div class="w3-bar w3-black w3-card">
+                 <a href="#" class="w3-bar-item w3-button w3-large  w3-hide-small w3-right w3-black"><i class="fa fa-home"></i></a>
+                 <a href="{% url 'user:login' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right" style="justify-content: center;" >LOGIN</a>
+             </div>
+	</div>
+<!--</div>-->
+<!--</nav>-->
+<!-- End Nav
+================================================== -->
+
+<!-- Begin Site Title
+================================================== -->
+<div class="container" >
+	<div class="mainheading">
+		<h1 class="sitetitle">SignUp</h1>
+		<p class="lead">
+<!--            글씨적어도됨 -->
+		</p>
+	</div>
+<!-- End Site Title
+================================================== -->
+
+	<!-- Begin Featured
+	================================================== -->
+    <section class="featured-posts">
+        <div class="section-title">
+		<h2><span>회원가입</span></h2>
+        </div>
+        <div class="center_box">
+	<form method="POST" enctype="multipart/form-data" action="{% url 'user:signup' %}">
         {% csrf_token %}
         {{form.as_p}}
-        <p>CMS 닉네임 : {{additional_form.nickname}}</p>
-        <p>내소개 : {{additional_form.user_description}}</p>
+        <p>내 별명 : {{additional_form.nickname}}</p>
+        <p>내 소개말 : {{additional_form.user_description}}</p>
         <!-- 관리자 권한으로 변경 예정 -->
         <p>사용자 권한 : {{additional_form.user_auth}}</p>
         <p>내 프로필 이미지 : {{additional_form.user_profile}}</p>
+        <br>
+        <div class="back_submit_choice_container" style="float: right">
+            <input type="submit" class="btn btn-primary col-12" style="cursor: pointer; border-radius: 10px; width: 80px; bottom: 10px;" value="회원가입">
+            <a class="btn btn-primary col-12" style="border-radius: 10px; width: 60px; bottom: 10px;" href="/">취소</a>
+        </div>
 
-        <input type="submit" value="회원가입">
-    </form>
+        </form>
+        </div>
 
+
+	</section>
+	<!-- End List Posts
+	================================================== -->
+
+	<!-- Begin Footer
+	================================================== -->
+	<div class="footer">
+		<p class="pull-left">
+			 Copyright &copy; 2022 CMS
+		</p>
+		<p class="pull-right">
+			 Mediumish Theme by <a target="_blank" href="https://www.wowthemes.net">WowThemes.net</a>
+		</p>
+		<div class="clearfix">
+		</div>
+	</div>
+	<!-- End Footer
+	================================================== -->
+
+</div>
+<!-- /.container -->
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!--<script src="/contents/static/assets/js/jquery.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<!--<script src="/contents/static/assets/js/bootstrap.min.js"></script>-->
+<!--<script> src="{% static './assets/js/ie10-viewport-bug-workaround.js' %}"></script> -->
+<!--<script src="/contents/static/assets/js/ie10-viewport-bug-workaround.js"></script>-->
+<script src="{% static './assets/js/ie10-viewport-bug-workaround.js' %}"></script>
+<script src="{% static './assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static './assets/js/jquery.min.js' %}"></script>
+</div>
 </body>
 </html>

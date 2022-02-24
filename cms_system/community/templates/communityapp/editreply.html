@@ -14,7 +14,6 @@
     <link href="{% static './assets/mycss.css' %}" rel="stylesheet">
     <title>댓글 수정</title>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
     <script>
       tinymce.init({
         selector: '#mycomment'
@@ -24,11 +23,12 @@
 <body>
     <div class="w3-top">
       <div class="w3-bar w3-black w3-card">
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="{% url 'display:signage' %}" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
         <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
       </div>
     </div>
     <div class="my_center">
+        <a href="{% url 'posting' community.id post.id %}" class="my_right my_blue_txt">뒤로가기</a><br>
         <form method="POST">
           {% csrf_token %}
           내용<br>

@@ -5,13 +5,14 @@
     font-style: normal;
 }
 .my_center {
-  margin-top: 100px;
-  margin-bottom: 0px;
-  margin-right: 50px;
-  margin-left: 50px;
+    padding-top: 100px;
+    padding-right: 50px;
+    padding-bottom: 100px;
+    padding-left: 50px;
 }
 .detail-contents {
-    margin-top: 100px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     width: auto;
     height: auto;
     border: 0.1rem solid #e0e0e0;
@@ -20,7 +21,7 @@
     border-radius: 1.2rem;
 }
 a, p, div {
-    font-size: 20px;
+    font-size: 30px;
     font-family: 'MinSans-Medium';
 }
 .my_right {
@@ -28,8 +29,8 @@ a, p, div {
 }
 .one {
     float: left;
-    width: 75%;
-    margin-top: 3px;
+    width: 70%;
+    margin-top: 12px;
 }
 .first {
     float: left;
@@ -41,7 +42,7 @@ a, p, div {
 .wrapper {
     display: grid;
     grid: '. . . . .';
-    row-gap: 50px;
+    row-gap: 30px;
 }
 .my_color_white {
     color: White;
@@ -51,7 +52,7 @@ a, p, div {
 }
 table, th, td {
     padding: 10px;
-    font-size: 20px;
+    font-size: 30px;
     border-bottom: 1px solid #DDD;
 }
 .my_blue_btn {
@@ -82,5 +83,7 @@ table, th, td {
     background-color: #ddd;
 }
 .my_center_txt {
-    text-align: center
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
