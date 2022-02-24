@@ -96,7 +96,7 @@ def CheckOS(ard_reciver):
 
     serialVal = []
     if osType == "Windows":
-        serialVal = ard_reciver[1]
+        serialVal = ard_reciver[0]
     elif osType == "Linux":
         serialVal = ard_reciver[0]
 
