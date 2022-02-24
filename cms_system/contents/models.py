@@ -19,6 +19,7 @@ class Contents(models.Model):
     lastEditDate = models.DateTimeField(auto_now=True)
     is_Accepted = models.BooleanField(default=True)
     contentType = models.CharField(max_length=3, null=True)
+    hits = models.DecimalField(max_digits=11, decimal_places=0, default=0, null=True)   # 조회수
 
     # 특정 확장자만 허용
     # https://sundries-in-myidea.tistory.com/85

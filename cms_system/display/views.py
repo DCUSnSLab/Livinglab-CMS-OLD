@@ -54,9 +54,9 @@ def picDetail(request, id):
 
     nickname = CustomUser.objects.get(user_id=contents.userFK_id)
     contents.nickname = nickname
+    contents.hits += 1
 
-
-
+    contents.save()
 
     content2server = list(Contents.objects.filter(id=id).values('id', 'title', 'upload_file'))
 
