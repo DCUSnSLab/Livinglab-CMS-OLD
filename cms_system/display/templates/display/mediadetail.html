@@ -3,6 +3,7 @@
 <html lang="en">
     <head>
         <link href="{% static './assets/css/detail.css' %}" rel="stylesheet">
+        <link href="{% static './assets/css/button.css' %}" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
@@ -14,30 +15,27 @@
     <div class="container">
 	 <div class="w3-top" style="margin-left: -80px; right: 0px">
              <div class="w3-bar w3-black w3-card" style="font-size: 30px;">
-                 <a href="{% url 'display:signage' %}" class="w3-bar-item w3-button w3-padding-large" style="justify-content: center;">BACK</a>
-                 <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="justify-content: center;" >COMMUNITY</a>
+                 <a href="{% url 'display:signage' %}" \
+                    class="w3-bar-item w3-button w3-padding-large" \
+                    style="justify-content: center;">BACK</a>
+
+                 <a href="{% url 'index' %}" \
+                    class="w3-bar-item w3-button w3-padding-large w3-hide-small" \
+                    style="justify-content: center;" >COMMUNITY</a>
              </div>
 	</div>
-{#        <header id="headerArea">#}
-{#            <div class="headerInner clearfix max-width"></div>#}
-{#            <div class="headerBox">#}
-{#                <button class="btn-5" onclick="location.href='/display/signage'" style="top:4px">BACK</button>#}
-{#            </div>#}
-{#        </header>#}
+
         <article class="no-pd" id="content" > </article>
         <div class="headerBlock"></div>
         <section id="section1" style="margin-top: 69px;">
             <div class="container">
                 <p></p>
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data"> <!-- 왜 form 태그가 있는거지? -->
                     {% csrf_token %}
                     <div id="div1">
                         <video id="picture" style="height: 400px; width: 100%; object-fit: cover;" autoplay controls loop muted poster="https://cdn.pixabay.com/photo/2020/05/30/17/57/flower-5239814_960_720.jpg" preload="auto">
                             <source src="/media/{{contents_info.upload_file}}" type="video/mp4">
-                            zzz
                         </video>
-{#                        <img id="picture"  style="height: 400px; width: 100%; object-fit: cover;"#}
-{#                             src = "/media/{{contents_info.upload_file}}" alt="NO Content">#}
                     </div>
                 </form>
             </div>
@@ -48,11 +46,20 @@
                     <div class="img_box">
                         <div class="title_box" style="margin-bottom: 3rem;">
                             <h2 style="margin-left : 5px;  font-size: 50px; font-family: 'MinSans-Medium';"><strong>{{contents_info.title}}</strong></h2>
-                            <p style="margin-left: 5px;  margin-top: 5px; line-height: 10%; font-size: 30px; font-family: 'MinSans-Medium'">{{contents_info.userFK}}</p>
+
+                            <span> 조회수 {{contents_info.hits}} 회 </span>
+                            <span> 추천수 {{contents_info.likes}} 회 </span>
+
+                            <div id="btn_group">
+                                <span>
+                                    <button id="test_btn1">
+                                        <a id = "likelink" href="{% url 'display:VODLike' contents_info.id%}">좋아요</a>
+                                        </button>
+                                </span>
+                            </div>
                         </div>
+
                         <div class="img">
-{#                        프로필 이미지 #}
-{#                        <div>{{customUser.user_profile}}</div>#}
                         {% for customUser in user_img %}
                             <img class="profile_user_img" src = "/media/{{customUser.user_profile}}" alt ="No Content">
                         {% endfor %}
