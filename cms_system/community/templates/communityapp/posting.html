@@ -25,7 +25,7 @@
     <div class="my_center">
         <a href="{% url 'community' community.id %}" class="my_right my_blue_txt">목록</a>
         <p>제목 : {{post.title}}</p>
-        <!--p>작성자 : {{post.userFK}}</p-->
+        <p>작성자 : {{post.userFK}}</p>
         <p>작성시간 : {{post.createDate}} &nbsp;&nbsp;&nbsp;&nbsp; 수정시간 : {{post.lastEditDate}}</p>
         <p>
             {% autoescape off %}
@@ -45,8 +45,6 @@
               <script src="src/index.js"></script-->
             </div>
         </form>
-        <input type="button" class="btn btn-primary btn-lg my_blue_btn" value="대댓글 보이기" onclick="show()">
-        <input type="button" class="btn btn-primary btn-lg my_blue_btn" value="대댓글 숨기기" onclick="hide()">
         <div class = "comments-list">
             <hr>
             {% for c in comment %}
@@ -69,12 +67,14 @@
                         <input type="text" class="form-control one" name="comment" placeholder="대댓글 입력">
                         <input type="submit" class="btn btn-primary btn-lg my_blue_btn" value="submit">
                     </div>
+{#                    <input type="button" class="btn btn-primary btn-lg my_blue_btn" value="대댓글 보이기" onclick="show()">#}
+                    <input type="button" class="btn btn-primary btn-lg my_blue_btn" value="대댓글" onclick="hide({{ c.id }})">
                 </form>
                 <div name="rereply">
                     {% for r in comment %}
                     {% if r.parent_comment == c %}
                     <br>
-                     <div class="reply" style="padding-left: 50px;">
+                     <div id="reply" style="padding-left: 50px;">
                         <p style="float: left; width: 60%;">익명</p><!--p style="float: left; width: 60%;">{{r.auth_user_id.nickname}}</p--><p class="right">{{r.lastEditDate}}</p>
                         <p style="word-wrap: break-word;">
                             {% autoescape off %}
@@ -97,18 +97,22 @@
     </div>
 </body>
 <script>
-    function hide() {
-        var num = document.getElementsByName("rereply")
-        for(var i = 0; i < num.length; i++){
-            document.getElementsByName("rereply")[i].style.display="none";
+    function hide(cmt) {
+        var comment = "{{ replycomment }}"
+        var cmt_dic = comment.replace(/&#x27;/g, "");
+        console.log(cmt_dic[0].id);
+        for (var i = 0; i < comment.length; i++){
+            if(comment[i] === cmt){
+                console.log(comment[i]);
+            }
         }
     }
-    function show() {
-        var num = document.getElementsByName("rereply")
-        for(var i = 0; i < num.length; i++){
-            document.getElementsByName("rereply")[i].style.display="block";
-        }
-    }
+    {#function show() {#}
+    {#    var num = document.getElementsByName("rereply")#}
+    {#    for(var i = 0; i < num.length; i++){#}
+    {#        document.getElementsByName("rereply")[i].style.display="block";#}
+    {#    }#}
+    {# } #}
 
     const Keyboard = window.SimpleKeyboard.default;
 

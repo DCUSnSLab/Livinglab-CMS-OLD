@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:id>/<int:pk>/reply/<int:rid>/edit', edit_reply, name='edit_reply'),
     path('<int:id>/<int:pk>/reply/<int:rid>/remove', remove_reply, name='remove_reply'),
     path('<int:id>/<int:pk>/rereply/<int:rid>', rereply, name='rereply'),
+    path('paint', paint, name='paint'),
 ]

@@ -29,11 +29,13 @@ def posting(request, id, pk):
     # 게시글 중에서 pk(primary_key)를 이용해 하나의 게시글 검색
     post = get_object_or_404(Post, pk=pk)
     comment = Comment.objects.filter(Post_id=post.id)
+    replycomment = list(Comment.objects.filter(id=id).values('id', 'content', 'parent_comment'))
     post.save()
     context = {
         'community': community,
         'post': post,
         'comment': comment,
+        'replycomment': replycomment,
     }
     return render(request, 'communityapp/posting.html', context)
 
@@ -47,6 +49,7 @@ def new_post(request, id):
         post.content = request.POST['contents']
         post.createDate = timezone.datetime.now()
         post.lastEditDate = timezone.datetime.now()
+        post.userFK = request.user
         post.save()
         return redirect('community', id)
     context = {
@@ -93,6 +96,7 @@ def reply(request, id, pk):
         comment.content = request.POST['comment']
         comment.createDate = timezone.datetime.now()
         comment.lastEditDate = timezone.datetime.now()
+        comment.userFK = request.user
         comment.save()
         return redirect('posting', id, pk)
     post = get_object_or_404(Post, pk=pk)
@@ -115,6 +119,7 @@ def rereply(request, id, pk, rid):
         comment.createDate = timezone.datetime.now()
         comment.lastEditDate = timezone.datetime.now()
         comment.parent_comment = Comment.objects.get(id=rid)
+        comment.userFK = request.user
         comment.save()
         return redirect('posting', id, pk)
     post = get_object_or_404(Post, pk=pk)
@@ -158,3 +163,6 @@ def remove_reply(request, id, pk, rid):
         'comment': comment,
     }
     return render(request, 'communityapp/removereply.html', context)
+
+def paint(request):
+    return render(request, 'communityapp/paint.html')
