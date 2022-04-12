@@ -207,9 +207,9 @@ def test(request):
 
 # 그림판 저장..?
 @csrf_exempt
-def paintlist(request, id):
+def paintlist(request):
     board = Board()
-    getboard = Board.objects.get(id=id)
+    getboard = Board.objects.all()
     if request.method == 'POST':
         # print(json.loads(request.body))
         requestImg = json.loads(request.body)
@@ -222,5 +222,8 @@ def paintlist(request, id):
         image.save(imagePath, 'png')
         board.path = imagePath
         board.save()
-    # context = {'board' = getboard}
-    return render(request, 'communityapp/paintlist.html')
+    context = {
+        'board': getboard,
+    }
+    return render(request, 'communityapp/paintlist.html', context)
+

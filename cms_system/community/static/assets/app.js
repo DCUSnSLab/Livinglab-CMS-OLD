@@ -105,9 +105,9 @@ function handleSaveClick() {
      }).done(function(data) {
      console.log(data);
      });
-    //  location.reload();
-    // location.replace(location.href);
-    // location.href = location.href;
+    location.reload();
+    location.replace(location.href);
+    location.href = location.href;
 
   //   let imageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
   //

@@ -14,5 +14,4 @@ urlpatterns = [
     path('<int:id>/<int:pk>/rereply/<int:rid>', rereply, name='rereply'),
     path('paint', paint, name='paint'),
     path('paintlist', paintlist, name='paintlist'),
-    path('test', test, name='test'),
 ]
