@@ -1,3 +1,7 @@
+var jScript = document.createElement("script");
+jScript.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js";
+document.body.appendChild(jScript);
+
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
 const colors = document.getElementsByClassName("jsColor");
@@ -6,7 +10,7 @@ const mode = document.getElementById("jsMode");
 const saveBtn = document.getElementById("jsSave");
 
 const INITIAL_COLOR = "#000000";
-const CANVAS_SIZE = 700;
+const CANVAS_SIZE = 1000;
 
 ctx.strokeStyle = "#2c2c2c";
 
@@ -78,11 +82,50 @@ function handleCM(event) {
  */
 
 function handleSaveClick() {
-  const image = canvas.toDataURL("image/png");
-  const link = document.createElement("a");
-  link.href = image;
-  link.download = "PaintJS[EXPORT]";
-  link.click();
+    // const link = document.createElement("a");
+    // link.href = image;
+    // link.download = "PaintJS";
+    // link.click();
+    // location.reload();
+    // location.replace(location.href);
+    // location.href = location.href;
+
+    //console.log(image);
+
+     var dataURL = canvas.toDataURL("image/png");
+     var data = dataURL.replace('data:image/png;base64,', "");
+    // var data = base64DecToArr(dataURL);
+     console.log(data);
+     $.ajax({
+         type: "POST",
+         url: "paintlist",
+         data: JSON.stringify({
+         imgBase64: data
+       })
+     }).done(function(data) {
+     console.log(data);
+     });
+    //  location.reload();
+    // location.replace(location.href);
+    // location.href = location.href;
+
+  //   let imageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  //
+  // let formData = new FormData();
+  // formData.append("image", imageBlob, "image.png");
+  //
+  // // modify the url accordingly
+  // let response = await fetch('http://localhost:8000/image', {
+  //   method: 'POST',
+  //   body: formData
+  // });
+  //
+  // // convert the response to json, modify it accordingly based on the returned response from your remote server
+  // let result = await response.json();
+  //
+  // location.reload();
+  //   location.replace(location.href);
+  //   location.href = location.href;
 }
 
 Array.from(colors).forEach(color =>

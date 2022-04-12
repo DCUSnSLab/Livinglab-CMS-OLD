@@ -2,10 +2,12 @@ from django.db import models
 from tinymce.models import HTMLField
 from django.conf import settings
 
+
 class Community(models.Model):
     id = models.AutoField(primary_key=True)  # 게시판id
     name = models.CharField(max_length=50)  # 게시판제목
     createDate = models.DateTimeField(auto_now_add=True)  # 게시판생성시간
+
     # Category_id
 
     def __str__(self):
@@ -21,6 +23,7 @@ class Post(models.Model):
     lastEditDate = models.DateTimeField(auto_now_add=True)  # 게시글수정시간
     Community_id = models.ForeignKey(Community, default=1, on_delete=models.CASCADE)  # 게시판
     userFK = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column="userFK", default=1)
+
     # postname이 postobject 대신
     def __str__(self):
         return self.title
@@ -37,3 +40,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class Board(models.Model):
+    # image = models.ImageField(upload_to='images/', blank=True, null=True)
+    path = models.CharField(max_length=200, null=True)
+

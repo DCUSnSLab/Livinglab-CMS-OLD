@@ -1,13 +1,37 @@
+import base64
+import io
+import pickle
+
+import numpy as np
+from PIL import Image
+from io import BytesIO
+import matplotlib as plt
+
+import os.path
+import random
+from datetime import time, datetime
+
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage, FileSystemStorage
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .models import Community, Post, Comment
+
+from .models import Community, Post, Comment, Board
 from django.core.paginator import Paginator
+import json
+from django.views.decorators.csrf import csrf_exempt
+
+import base64
+from PIL import Image
+
 
 # Create your views here.
 # 게시판 리스트
 def index(request):
     communitylist = Community.objects.all()
     return render(request, 'communityapp/index.html', {'communitylist': communitylist})
+
 
 # 게시글 리스트
 def community(request, id):
@@ -22,6 +46,7 @@ def community(request, id):
         'page_obj': page_obj,
     }
     return render(request, 'communityapp/blog.html', context)
+
 
 # 게시글
 def posting(request, id, pk):
@@ -38,6 +63,7 @@ def posting(request, id, pk):
         'replycomment': replycomment,
     }
     return render(request, 'communityapp/posting.html', context)
+
 
 # 게시글 작성
 def new_post(request, id):
@@ -57,6 +83,7 @@ def new_post(request, id):
     }
     return render(request, 'communityapp/newpost.html', context)
 
+
 # 게시글 수정
 def edit_post(request, id, pk):
     community = get_object_or_404(Community, id=id)
@@ -74,6 +101,7 @@ def edit_post(request, id, pk):
     }
     return render(request, 'communityapp/editpost.html', context)
 
+
 # 게시글 삭제
 def remove_post(request, id, pk):
     community = get_object_or_404(Community, id=id)
@@ -86,6 +114,7 @@ def remove_post(request, id, pk):
         'post': post,
     }
     return render(request, 'communityapp/removepost.html', context)
+
 
 # 댓글 작성
 def reply(request, id, pk):
@@ -108,6 +137,7 @@ def reply(request, id, pk):
         'comment': comment,
     }
     return render(request, 'communityapp/posting.html', context)
+
 
 # 대댓글 작성
 def rereply(request, id, pk, rid):
@@ -132,6 +162,7 @@ def rereply(request, id, pk, rid):
     }
     return render(request, 'communityapp/posting.html', context)
 
+
 # 댓글 수정
 def edit_reply(request, id, pk, rid):
     community = get_object_or_404(Community, id=id)
@@ -149,6 +180,7 @@ def edit_reply(request, id, pk, rid):
     }
     return render(request, 'communityapp/editreply.html', context)
 
+
 # 댓글 삭제
 def remove_reply(request, id, pk, rid):
     community = get_object_or_404(Community, id=id)
@@ -164,5 +196,31 @@ def remove_reply(request, id, pk, rid):
     }
     return render(request, 'communityapp/removereply.html', context)
 
+
+# 그림판
 def paint(request):
     return render(request, 'communityapp/paint.html')
+
+# 웹소켓 테스트용
+def test(request):
+    return render(request, 'communityapp/test.html')
+
+# 그림판 저장..?
+@csrf_exempt
+def paintlist(request, id):
+    board = Board()
+    getboard = Board.objects.get(id=id)
+    if request.method == 'POST':
+        # print(json.loads(request.body))
+        requestImg = json.loads(request.body)
+        byteImg = bytes(requestImg['imgBase64'], 'utf-8')
+        imgDecode = base64.b64decode(byteImg)
+        image = Image.open(io.BytesIO(imgDecode))
+        filename1 = datetime.now().strftime("%Y%m%d-%H%M%S")
+        imagePath = './media/community/drawing/{0}.png'.format(filename1)
+        print(imagePath)
+        image.save(imagePath, 'png')
+        board.path = imagePath
+        board.save()
+    # context = {'board' = getboard}
+    return render(request, 'communityapp/paintlist.html')

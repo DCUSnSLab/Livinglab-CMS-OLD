@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# from channels.routing import ProtocolTypeRouter
+# from django.core.asgi import get_asgi_application
+
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 print(BASE_DIR)
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'display.apps.DisplayConfig',
     'community.apps.CommunityConfig',
     'tinymce',
+    'channels',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -79,6 +85,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cms_system.wsgi.application'
+ASGI_APPLICATION = 'cms_system.asgi.application'
 
 
 # Database
@@ -99,7 +106,7 @@ DATABASES = {
         'CONN_MAX_AGE': 0,
         'ENGINE': 'django.db.backends.mysql',
         'HOST': 'localhost',
-        'NAME': 'livinglab02',
+        'NAME': 'livinglab04',
         'PASSWORD': '011021',
         'PORT': '3306',
         'USER': 'master'
@@ -147,3 +154,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cms_system.settings')
+
+# application = ProtocolTypeRouter({
+#     "http" : get_asgi_application(),
+# })
