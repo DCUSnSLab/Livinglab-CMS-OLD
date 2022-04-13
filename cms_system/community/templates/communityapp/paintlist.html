@@ -1,16 +1,36 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta content="description" name="description">
+    <meta name="google" content="notranslate" />
+    <meta content="Mashup templates have been developped by Orson.io team" name="author">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="{% static './assets/main.82cfd66e.css' %}" rel="stylesheet">
+    <link href="{% static './assets/mycss.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css" >
     <title>Title</title>
 </head>
 <body>
-    <table>
+    <div class="w3-top">
+      <div class="w3-bar w3-black w3-card">
+        <a href="{% url 'display:signage' %}" class="w3-bar-item w3-button w3-padding-large">GALLERY</a>
+        <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMMUNITY</a>
+      </div>
+    </div>
+    <div class="my_center">
+        <table>
         {% for list in board %}
-            <ul>
-                <li>{{list.path}}</li>
-            </ul>
+            <tr>
+                <td><img class="image" src="{{ list.path }}" style="width: 320px; height: 320px;"/></td>
+            </tr>
         {% endfor %}
     </table>
+    </div>
 </body>
 </html>

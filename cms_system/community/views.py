@@ -220,7 +220,7 @@ def paintlist(request):
         imagePath = './media/community/drawing/{0}.png'.format(filename1)
         print(imagePath)
         image.save(imagePath, 'png')
-        board.path = imagePath
+        board.path = '.'+imagePath
         board.save()
     context = {
         'board': getboard,
